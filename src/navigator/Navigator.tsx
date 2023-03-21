@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { authenticate } from 'slices/app.slice'
+import { authenticate } from '../slices/app.slice'
 
 import DrawerNavigator from './Drawer'
 
@@ -11,7 +11,7 @@ const Navigator = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(authenticate({ loggedIn: true, checked: true }))
+    dispatch(authenticate({ loggedIn: false, checked: true }))
   }, [])
 
   // TODO: switch router by loggedIn state

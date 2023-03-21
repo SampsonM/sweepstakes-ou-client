@@ -5,7 +5,11 @@ module.exports = {
     jest: true,
   },
   parser: 'babel-eslint',
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: [
+    'plugin:react/recommended',
+    'plugin:import/typescript',
+    'plugin:@typescript-eslint/recommended',
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -17,7 +21,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', '@typescript-eslint', 'import'],
   rules: {
     semi: [2, 'never'],
     'react/jsx-filename-extension': 'off',
@@ -28,9 +32,21 @@ module.exports = {
     'no-console': 'off',
     'react/jsx-props-no-spreading': 'off',
     'import/no-extraneous-dependencies': [
-      'error',
+      'warn',
       {
         devDependencies: true,
+        optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
       },
     ],
   },
@@ -39,6 +55,15 @@ module.exports = {
       node: {
         paths: ['src'],
       },
+      typescript: {
+        alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+      },
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    react: {
+      version: 'detect',
     },
   },
 }

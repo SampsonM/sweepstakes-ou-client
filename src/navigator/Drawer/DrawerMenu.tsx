@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, SafeAreaView, Text } from 'react-native'
+import { View, SafeAreaView, Text, StyleSheet } from 'react-native'
 
 import { DrawerActions } from '@react-navigation/native'
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
-import { colors } from 'theme'
+import { colors } from '../../theme'
+import { DrawerContentComponentProps } from '@react-navigation/drawer'
 
-const styles = {
+const styles = StyleSheet.create({
   root: {
     flex: 1,
     flexDirection: 'column',
@@ -22,9 +23,9 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-}
+})
 
-const DrawerMenu = ({ navigation }) => (
+const DrawerMenu = ({ navigation }: DrawerContentComponentProps) => (
   <SafeAreaView style={styles.root}>
     <View style={styles.head}>
       <FontIcon.Button
@@ -42,17 +43,5 @@ const DrawerMenu = ({ navigation }) => (
     </View>
   </SafeAreaView>
 )
-
-DrawerMenu.propTypes = {
-  navigation: PropTypes.shape({
-    dispatch: PropTypes.func,
-  }),
-}
-
-DrawerMenu.defaultProps = {
-  navigation: {
-    dispatch: () => null,
-  },
-}
 
 export default DrawerMenu

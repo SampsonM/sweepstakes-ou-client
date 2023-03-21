@@ -4,7 +4,7 @@ import {
   getDefaultMiddleware,
 } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
-import appReducer from 'slices/app.slice'
+import appReducer from '../slices/app.slice'
 
 const rootReducer = combineReducers({
   app: appReducer,

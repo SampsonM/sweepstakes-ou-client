@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   createDrawerNavigator,
+  DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer'
@@ -9,10 +10,12 @@ import TabNavigator from '../Tabs'
 
 const Drawer = createDrawerNavigator()
 
-const DrawerMenuContainer = (props) => {
+const DrawerMenuContainer = (props: DrawerContentComponentProps) => {
   const { state, ...rest } = props
   const newState = { ...state }
+
   newState.routes = newState.routes.filter((item) => item.name !== 'Home')
+
   return (
     <DrawerContentScrollView {...props}>
       <DrawerMenu {...props} />

@@ -1,9 +1,9 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { colors } from 'theme'
-import Home from 'pages/Home'
-import Profile from 'pages/Profile'
-import Details from 'pages/Details'
+import { colors } from '../../theme'
+import Home from '../../pages/Home'
+import Profile from '../../pages/Profile'
+import Details from '../../pages/Details'
 import HeaderLeft from './HeaderLeft'
 import HeaderTitle from './HeaderTitle'
 
