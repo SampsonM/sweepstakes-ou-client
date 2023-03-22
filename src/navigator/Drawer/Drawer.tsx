@@ -24,8 +24,10 @@ const DrawerMenuContainer = (props: DrawerContentComponentProps) => {
   )
 }
 
-export default () => (
+const DrawerNavigator = () => (
   <Drawer.Navigator initialRouteName="Home" drawerContent={DrawerMenuContainer}>
     <Drawer.Screen name="Home" component={TabNavigator} />
   </Drawer.Navigator>
 )
+
+export default DrawerNavigator

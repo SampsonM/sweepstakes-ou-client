@@ -22,4 +22,6 @@ const store = configureStore({
   middleware: __DEV__ ? defaultMiddleware.concat(logger) : defaultMiddleware,
 })
 
+export type RootState = ReturnType<typeof rootReducer>
+
 export default store

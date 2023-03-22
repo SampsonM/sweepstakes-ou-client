@@ -26,10 +26,13 @@ const appSlice = createSlice({
     saveMe: (state, { payload }) => {
       state.me = payload.me
     },
+    logout: (state) => {
+      state.loggedIn = false
+    }
   },
 })
 
 export const { action } = appSlice
-export const { authenticate, saveMe } = appSlice.actions
+export const { authenticate, saveMe, logout } = appSlice.actions
 
 export default appSlice.reducer

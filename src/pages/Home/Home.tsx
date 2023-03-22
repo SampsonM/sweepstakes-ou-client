@@ -1,8 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import Button from '../../components/Button'
 import { colors } from '../../theme'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../slices/app.slice'
 
 const styles = StyleSheet.create({
   root: {
@@ -18,29 +19,32 @@ const styles = StyleSheet.create({
   },
 })
 
-const Home = ({ navigation }) => (
-  <View style={styles.root}>
-    <StatusBar barStyle="light-content" />
-    <Text style={styles.title}>Home</Text>
-    <Button
-      title="Go to Details"
-      color="white"
-      backgroundColor={colors.lightPurple}
-      onPress={() => {
-        navigation.navigate('Details', { from: 'Home' })
-      }}
-    />
-  </View>
-)
+const Home = ({ navigation }: { navigation: any }) => {
+  const dispatch = useDispatch()
 
-Home.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func,
-  }),
-}
-
-Home.defaultProps = {
-  navigation: { navigate: () => null },
+  const handleLogout = () => {
+    dispatch(logout())
+  }
+  return (
+    <View style={styles.root}>
+      <StatusBar barStyle="light-content" />
+      <Text style={styles.title}>Home</Text>
+      <Button
+        title="Go to Details"
+        color="white"
+        backgroundColor={colors.lightPurple}
+        onPress={() => {
+          navigation.navigate('Details', { from: 'Home' })
+        }}
+      />
+      <Button
+        title="Sign out"
+        color="white"
+        backgroundColor={colors.lightPurple}
+        onPress={handleLogout}
+      />
+    </View>
+  )
 }
 
 export default Home

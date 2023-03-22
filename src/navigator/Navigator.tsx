@@ -1,28 +1,33 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { Text } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import { authenticate } from '../slices/app.slice'
 
 import DrawerNavigator from './Drawer'
+import LoginNavigator from './Login'
+import { appStateSelector } from '../utils/selectors'
+import { Text } from 'react-native'
 
 const Navigator = () => {
-  const { checked, loggedIn } = useSelector((state) => state.app)
-  const dispatch = useDispatch()
+  const { loggedIn } = appStateSelector()
+  
+  // get from rtk call to login
+  const loading = false
 
-  useEffect(() => {
-    dispatch(authenticate({ loggedIn: false, checked: true }))
-  }, [])
+  if (loading) {
+    return <Text>Loading...</Text>
+  }
 
-  // TODO: switch router by loggedIn state
-  console.log('[##] loggedIn', loggedIn)
+  if (loggedIn) {
+    return (
+      <NavigationContainer>
+        <DrawerNavigator />
+      </NavigationContainer>
+    )
+  }
 
-  return checked ? (
+  return (
     <NavigationContainer>
-      <DrawerNavigator />
+      <LoginNavigator />
     </NavigationContainer>
-  ) : (
-    <Text>Loading...</Text>
   )
 }
 

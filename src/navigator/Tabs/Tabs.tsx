@@ -1,43 +1,47 @@
 import React from 'react'
 import { View } from 'react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
 import { colors } from '../../theme'
 
 // stack navigators
 import { HomeNavigator, ProfileNavigator } from '../Stacks'
+import { RouteProp } from '@react-navigation/native'
 
-const Tab = createBottomTabNavigator()
+export type TabNavigatorParamList = {
+  Home: undefined;
+  Profile: undefined;
+};
 
-const getTabBarIcon =
-  (route) =>
-  ({ focused }) => {
-    switch (route.name) {
-      case 'Home':
-        return (
-          <FontIcon
-            name="home"
-            color={focused ? colors.lightPurple : colors.gray}
-            size={20}
-            solid
-          />
-        )
-      case 'Profile':
-        return (
-          <FontIcon
-            name="user"
-            color={focused ? colors.lightPurple : colors.gray}
-            size={20}
-            solid
-          />
-        )
-      default:
-        return <View />
-    }
+const Tab = createBottomTabNavigator<TabNavigatorParamList>()
+
+const getTabBarIcon = (route: RouteProp<TabNavigatorParamList, 'Home' | 'Profile'>, focused: boolean) => {
+  switch (route.name) {
+    case 'Home':
+      return (
+        <FontIcon
+          name="home"
+          color={focused ? colors.lightPurple : colors.gray}
+          size={20}
+          solid
+        />
+      )
+    case 'Profile':
+      return (
+        <FontIcon
+          name="user"
+          color={focused ? colors.lightPurple : colors.gray}
+          size={20}
+          solid
+        />
+      )
+    default:
+      return <View />
   }
+}
 
-const getScreenOptions = ({ route }) => ({
-  tabBarIcon: getTabBarIcon(route),
+const getScreenOptions = ({ route }: { route: RouteProp<TabNavigatorParamList, 'Home' | 'Profile'> }): BottomTabNavigationOptions => ({
+  tabBarIcon: ({ focused }) => getTabBarIcon(route, focused),
 })
 
 const TabNavigator = () => (

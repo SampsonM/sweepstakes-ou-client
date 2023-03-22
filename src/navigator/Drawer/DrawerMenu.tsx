@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { View, SafeAreaView, Text, StyleSheet } from 'react-native'
 
 import { DrawerActions } from '@react-navigation/native'
@@ -39,7 +38,7 @@ const DrawerMenu = ({ navigation }: DrawerContentComponentProps) => (
       />
     </View>
     <View style={styles.main}>
-      <Text>Drawer Menu</Text>
+      <Text>Put drawer items here? do we need one?</Text>
     </View>
   </SafeAreaView>
 )
