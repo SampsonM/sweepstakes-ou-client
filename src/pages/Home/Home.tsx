@@ -25,6 +25,7 @@ const Home = ({ navigation }: { navigation: any }) => {
   const handleLogout = () => {
     dispatch(logout())
   }
+
   return (
     <View style={styles.root}>
       <StatusBar barStyle="light-content" />

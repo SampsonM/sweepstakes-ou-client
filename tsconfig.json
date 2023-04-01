@@ -11,5 +11,6 @@
     "moduleResolution": "node",
     "typeRoots": ["./src/types"]
   },
+  "exclude": ["./src/types"],
   "extends": "expo/tsconfig.base"
 }

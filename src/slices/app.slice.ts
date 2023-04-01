@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 // ------------------------------------
 // Constants
@@ -28,11 +28,11 @@ const appSlice = createSlice({
     },
     logout: (state) => {
       state.loggedIn = false
-    }
+    },
   },
 })
 
-export const { action } = appSlice
+export const { actions } = appSlice
 export const { authenticate, saveMe, logout } = appSlice.actions
 
 export default appSlice.reducer

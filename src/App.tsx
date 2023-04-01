@@ -6,7 +6,6 @@ import './utils/ignore'
 
 // assets
 import { imageAssets } from './theme/images'
-import { fontAssets } from './theme/fonts'
 import Navigator from './navigator'
 
 const App = () => {
@@ -14,7 +13,7 @@ const App = () => {
 
   // assets preloading
   const handleLoadAssets = async () => {
-    await Promise.all([...imageAssets, ...fontAssets])
+    await Promise.all([...imageAssets])
     setDidLoad(true)
   }
 

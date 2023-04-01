@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
 import { colors } from '../../theme'
 
@@ -9,13 +9,15 @@ import { HomeNavigator, ProfileNavigator } from '../Stacks'
 import { RouteProp } from '@react-navigation/native'
 
 export type TabNavigatorParamList = {
-  Home: undefined;
-  Profile: undefined;
-};
+  Home: undefined
+  Profile: undefined
+}
+
+type TabRouteProp = RouteProp<TabNavigatorParamList, 'Home' | 'Profile'>
 
 const Tab = createBottomTabNavigator<TabNavigatorParamList>()
 
-const getTabBarIcon = (route: RouteProp<TabNavigatorParamList, 'Home' | 'Profile'>, focused: boolean) => {
+const getTabBarIcon = (route: TabRouteProp, focused: boolean) => {
   switch (route.name) {
     case 'Home':
       return (
@@ -40,23 +42,14 @@ const getTabBarIcon = (route: RouteProp<TabNavigatorParamList, 'Home' | 'Profile
   }
 }
 
-const getScreenOptions = ({ route }: { route: RouteProp<TabNavigatorParamList, 'Home' | 'Profile'> }): BottomTabNavigationOptions => ({
-  tabBarIcon: ({ focused }) => getTabBarIcon(route, focused),
-})
-
 const TabNavigator = () => (
   <Tab.Navigator
-    screenOptions={getScreenOptions}
+    screenOptions={({ route }: { route: TabRouteProp }) => ({
+      tabBarIcon: ({ focused }) => getTabBarIcon(route, focused),
+    })}
     tabBarOptions={{
       activeTintColor: colors.lightPurple,
       inactiveTintColor: colors.gray,
-      style: {
-        // backgroundColor: 'white',
-        // borderTopColor: 'gray',
-        // borderTopWidth: 1,
-        // paddingBottom: 5,
-        // paddingTop: 5,
-      },
     }}
     initialRouteName="Home"
   >

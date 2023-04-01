@@ -1,5 +1,15 @@
+import { ThemeManager } from 'react-native-ui-lib'
 import colors from './colors'
-import fonts from './fonts'
 import images from './images'
 
-export { colors, fonts, images }
+ThemeManager.setComponentTheme('Card', {
+  borderRadius: 8,
+})
+
+ThemeManager.setComponentTheme('Button', (props: any) => {
+  return {
+    borderRadius: 4,
+  }
+})
+
+export { colors, images }

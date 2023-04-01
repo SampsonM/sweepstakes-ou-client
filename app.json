@@ -2,6 +2,7 @@
   "expo": {
     "name": "react-native-boilerplate",
     "slug": "react-native-boilerplate",
+    "scheme": "com.sweepsteaks.ou",
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
@@ -17,7 +18,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sweepsteaks.ou"
     },
     "packagerOpts": {
       "config": "metro.config.js",

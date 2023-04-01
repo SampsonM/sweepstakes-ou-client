@@ -1,36 +1,7 @@
-import * as Font from 'expo-font'
+import { Typography } from 'react-native-ui-lib'
 
-// fonts preloading
-export const fontAssets = [
-  {
-    openSans_regular: require('../../assets/fonts/OpenSans-Regular.ttf'),
-  },
-  {
-    openSans_regular_italic: require('../../assets/fonts/OpenSans-Italic.ttf'),
-  },
-  {
-    openSans_semiBold: require('../../assets/fonts/OpenSans-Semibold.ttf'),
-  },
-  {
-    openSans_semiBold_italic: require('../../assets/fonts/OpenSans-SemiboldItalic.ttf'),
-  },
-  {
-    openSans_bold: require('../../assets/fonts/OpenSans-Bold.ttf'),
-  },
-  {
-    openSans_bold_italic: require('../../assets/fonts/OpenSans-BoldItalic.ttf'),
-  },
-].map((x) => Font.loadAsync(x))
-
-const fonts = {
-  openSan: {
-    regular: 'openSans_regular',
-    regularItalic: 'openSans_regular_italic',
-    semiBold: 'openSans_semiBold',
-    semiBoldItalic: 'openSans_semiBold_italic',
-    bold: 'openSans_bold',
-    boldItalic: 'openSans_bold_italic',
-  },
-}
-
-export default fonts
+Typography.loadTypographies({
+  heading: { fontSize: 36, fontWeight: '600' },
+  subheading: { fontSize: 28, fontWeight: '500' },
+  body: { fontSize: 18, fontWeight: '400' },
+})

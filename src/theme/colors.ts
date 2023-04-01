@@ -1,10 +1,37 @@
+import { Colors } from 'react-native-ui-lib'
+
 const colors = {
-  darkPurple: '#231d54',
-  purple: '#8100ff',
-  lightPurple: '#9388db',
-  lightGrayPurple: '#f7f7fb',
-  pink: '#ff3d69',
-  gray: '#797777',
+  red: '#FC3342',
+  blue: '#4554DD',
+  gold: '#FFEA34',
+  black: '#3d3d3d',
+  grey: '#747474',
+  yellow: '#ffd500',
+
+  'faded-red': '#e16666',
+
+  'light-red': '#e57b7b',
+  'light-blue': '#9ca5fd',
+  'light-gold': '#FFF7cE',
+
+  'dark-red': '#B0000D',
+  'dark-blue': '#101A7D',
+  'dark-gold': '#B5A300',
+  'dark-yellow': '#c09000',
 }
+
+Colors.loadColors({
+  // BG colors
+  'primary-bg': 'transparent',
+
+  // Text colors
+  'primary-text-color': colors.black,
+
+  // Button colors
+  'btn-primary-text-color': colors['light-gold'],
+  'btn-primary-bg': colors.blue,
+  'btn-secondary-text-color': colors['light-gold'],
+  'btn-secondary-bg': colors['dark-red'],
+})
 
 export default colors
