@@ -1,57 +1,44 @@
 import React, { useEffect } from 'react'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Platform } from 'react-native'
-import * as Google from 'expo-auth-session/providers/google'
-import * as WebBrowser from 'expo-web-browser'
 
-import {
-  GOOGLE_ANDROID_CLIENT_ID,
-  GOOGLE_IOS_CLIENT_ID,
-  GOOGLE_IOS_CLIENT_ID_REVERSE,
-} from '@env'
 import { LoginStackParamList } from '../../navigator/Stacks/Login'
 import { useDispatch } from 'react-redux'
 import { authenticate } from '../../slices/app.slice'
 import Button from '../Button'
+import useGoogleAuth from '../../utils/hooks/useGoogleAuth'
+import { useLoginMutation } from '../../slices/user.slice'
+import { Alert } from 'react-native'
 
 export type LoginProps = NativeStackScreenProps<LoginStackParamList, 'Login'>
 
-WebBrowser.maybeCompleteAuthSession()
-
-const scheme = Platform.select({
-  ios: `${GOOGLE_IOS_CLIENT_ID_REVERSE}:/oauthredirect`,
-  android: `com.sweepsteaks.app:/oauthredirect`,
-})
-
 const LoginButton = () => {
   const dispatch = useDispatch()
-
-  const [request, response, promptAsync] = Google.useAuthRequest(
-    {
-      androidClientId: GOOGLE_ANDROID_CLIENT_ID,
-      iosClientId: GOOGLE_IOS_CLIENT_ID,
-      clientId: GOOGLE_IOS_CLIENT_ID,
-      redirectUri: scheme,
-      usePKCE: true,
-      scopes: ['openid', 'profile', 'email'],
-    },
-    { useProxy: false },
-  )
+  const [signUp, { isSuccess, data: user, isLoading, error, isError }] = useLoginMutation()
+  const [request, response, initiateGoogleAuth] = useGoogleAuth()
 
   useEffect(() => {
-    if (response?.type === 'success') {
-      console.log('LOGGED IN - ', response.params)
-      // Make request to api with code
-
-      dispatch(authenticate({ loggedIn: true, checked: true }))
+    if (response?.type === 'success' && response.params.id_token) {
+      signUp(response.params.id_token)
     }
-  }, [response, request])
+  }, [response])
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(authenticate({ loggedIn: true, checked: true, user }))
+    }
+  }, [isSuccess, user])
+
+  useEffect(() => {
+    if (isError && error) {
+      Alert.alert(error.data.message)
+    }
+  }, [isError, error])
 
   return (
     <Button
-      disabled={!request}
+      disabled={!request || isLoading}
       label="Login with Google"
-      onPress={() => promptAsync({ useProxy: false })}
+      onPress={() => initiateGoogleAuth()}
     />
   )
 }

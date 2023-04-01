@@ -30,13 +30,14 @@ const DrawerMenu = ({ navigation }: DrawerContentComponentProps) => (
       <FontIcon.Button
         name="times"
         size={20}
-        color={colors.gray}
+        color={colors.grey}
         backgroundColor="white"
         onPress={() => {
           navigation.dispatch(DrawerActions.closeDrawer())
         }}
       />
     </View>
+
     <View style={styles.main}>
       <Text>Put drawer items here? do we need one?</Text>
     </View>

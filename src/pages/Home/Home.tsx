@@ -1,7 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, StatusBar } from 'react-native'
+import { StyleSheet, View, StatusBar } from 'react-native'
 import Button from '../../components/Button'
-import { colors } from '../../theme'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../slices/app.slice'
 
@@ -11,11 +10,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+    backgroundColor: 'transparent',
   },
 })
 
@@ -29,19 +24,16 @@ const Home = ({ navigation }: { navigation: any }) => {
   return (
     <View style={styles.root}>
       <StatusBar barStyle="light-content" />
-      <Text style={styles.title}>Home</Text>
+      
       <Button
-        title="Go to Details"
-        color="white"
-        backgroundColor={colors.lightPurple}
+        label="Go to Details"
         onPress={() => {
           navigation.navigate('Details', { from: 'Home' })
         }}
       />
       <Button
-        title="Sign out"
-        color="white"
-        backgroundColor={colors.lightPurple}
+        secondary
+        label="Sign out"
         onPress={handleLogout}
       />
     </View>

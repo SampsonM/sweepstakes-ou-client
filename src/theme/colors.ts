@@ -6,7 +6,7 @@ const colors = {
   gold: '#FFEA34',
   black: '#3d3d3d',
   grey: '#747474',
-  yellow: '#ffd500',
+  yellow: '#ffc000',
 
   'faded-red': '#e16666',
 

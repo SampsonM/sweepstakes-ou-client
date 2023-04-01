@@ -1,60 +1,57 @@
 import React from 'react'
-import { View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
+
 import { colors } from '../../theme'
 
-// stack navigators
 import { HomeNavigator, ProfileNavigator } from '../Stacks'
 import { RouteProp } from '@react-navigation/native'
 
 export type TabNavigatorParamList = {
-  Home: undefined
+  Home: undefined,
   Profile: undefined
 }
 
-type TabRouteProp = RouteProp<TabNavigatorParamList, 'Home' | 'Profile'>
+export type TabRouteProp = RouteProp<TabNavigatorParamList, 'Home' | 'Profile'>
 
 const Tab = createBottomTabNavigator<TabNavigatorParamList>()
 
-const getTabBarIcon = (route: TabRouteProp, focused: boolean) => {
-  switch (route.name) {
-    case 'Home':
-      return (
-        <FontIcon
-          name="home"
-          color={focused ? colors.lightPurple : colors.gray}
-          size={20}
-          solid
-        />
-      )
-    case 'Profile':
-      return (
-        <FontIcon
-          name="user"
-          color={focused ? colors.lightPurple : colors.gray}
-          size={20}
-          solid
-        />
-      )
-    default:
-      return <View />
-  }
-}
-
 const TabNavigator = () => (
   <Tab.Navigator
-    screenOptions={({ route }: { route: TabRouteProp }) => ({
-      tabBarIcon: ({ focused }) => getTabBarIcon(route, focused),
-    })}
     tabBarOptions={{
-      activeTintColor: colors.lightPurple,
-      inactiveTintColor: colors.gray,
+      activeTintColor: colors.red,
+      inactiveTintColor: colors.grey,
+      style: {
+        backgroundColor: colors.yellow,
+        borderTopColor: 'red',
+        height: 90,
+      },
+      tabStyle: {
+        paddingTop: 10,
+        paddingBottom: 5,
+      },
+      labelStyle: {
+        fontSize: 14,
+        fontWeight: '500',
+      },
     }}
     initialRouteName="Home"
   >
-    <Tab.Screen name="Home" component={HomeNavigator} />
-    <Tab.Screen name="Profile" component={ProfileNavigator} />
+    <Tab.Screen
+      name="Home"
+      component={HomeNavigator}
+      options={{
+        tabBarIcon: ({ color, size }) => <FontIcon name="home" color={color} size={size} solid />,
+      }}
+    />
+    
+    <Tab.Screen
+      name="Profile"
+      component={ProfileNavigator}
+      options={{
+        tabBarIcon: ({ color, size }) => <FontIcon name="user" color={color} size={size} solid />,
+      }}
+    />
   </Tab.Navigator>
 )
 

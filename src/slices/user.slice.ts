@@ -20,14 +20,14 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
     signUp: builder.mutation<User, string>({
-      query: (token) => ({ url: 'signup', body: { token } }),
+      query: (token) => ({ url: 'signup', body: { token }, method: 'POST' }),
       transformResponse: (res: UserData) => res.user,
     }),
     login: builder.mutation<User, string>({
-      query: (token) => ({ url: 'login', body: { token } }),
+      query: (token) => ({ url: 'login', body: { token }, method: 'POST' }),
       transformResponse: (res: UserData) => res.user,
     }),
   }),
 })
 
-export const { useSignUpMutation } = userApi
+export const { useSignUpMutation, useLoginMutation } = userApi

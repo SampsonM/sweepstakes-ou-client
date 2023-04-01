@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import Button from '../../components/Button'
-import { colors } from '../../theme'
 
 const styles = StyleSheet.create({
   root: {
@@ -10,7 +9,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
   },
   title: {
     fontSize: 24,
@@ -25,9 +23,7 @@ const Details = ({ route, navigation }) => {
       <StatusBar barStyle="light-content" />
       <Text style={styles.title}>{`Details (from ${from})`}</Text>
       <Button
-        title="Go Back"
-        color="white"
-        backgroundColor={colors.pink}
+        label="Go Back"
         onPress={navigation.goBack}
       />
     </View>

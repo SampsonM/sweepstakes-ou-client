@@ -14,9 +14,7 @@ const store = configureStore({
     const defaultMiddleware = getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    })
-
-    defaultMiddleware.concat(userApi.middleware)
+    }).concat(userApi.middleware)
 
     return __DEV__ ? defaultMiddleware.concat(logger) : defaultMiddleware
   },

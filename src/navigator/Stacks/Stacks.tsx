@@ -14,7 +14,7 @@ const Stack = createStackNavigator()
 
 const navigationProps = {
   headerTintColor: 'white',
-  headerStyle: { backgroundColor: colors.darkPurple },
+  headerStyle: { backgroundColor: colors.yellow, },
   headerTitleStyle: { fontSize: 18 },
 }
 
@@ -34,16 +34,16 @@ export const HomeNavigator = () => (
       options={({ navigation }) => ({
         title: 'Home',
         headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerTitle: () => <HeaderTitle />,
+        headerTitle: () => <HeaderTitle title='Home' />,
       })}
     />
     <Stack.Screen
       name="Details"
       component={Details}
       options={({ navigation }) => ({
-        title: 'Home',
+        title: 'Details',
         headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerTitle: () => <HeaderTitle />,
+        headerTitle: () => <HeaderTitle title='Details' />,
       })}
     />
   </Stack.Navigator>
