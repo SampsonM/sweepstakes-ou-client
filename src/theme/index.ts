@@ -1,6 +1,7 @@
 import { ThemeManager } from 'react-native-ui-lib'
 import colors from './colors'
 import images from './images'
+import './fonts'
 
 ThemeManager.setComponentTheme('Card', {
   borderRadius: 8,

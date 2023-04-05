@@ -1,10 +1,12 @@
 import React from 'react'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { StatusBar } from 'react-native'
+
 import { LoginStackParamList } from '../../navigator/Stacks/Login'
 import LoginButton from '../../components/LoginButton'
 import SignupButton from '../../components/SignupButton'
-import { View, Text } from 'react-native-ui-lib'
+import { View } from 'react-native-ui-lib'
+import BasicScreen from '../../components/BasicScreen'
+import { Heading } from '../../components/Typography'
 
 export type LandingProps = NativeStackScreenProps<
   LoginStackParamList,
@@ -12,18 +14,15 @@ export type LandingProps = NativeStackScreenProps<
 >
 
 const Landing = () => (
-  <View flex center bg-primary-bg>
-    <StatusBar barStyle="dark-content" />
-
-    <Text text50 primary-text-color marginB-10>
-      SweepSteaks
-    </Text>
-
-    <View>
-      <LoginButton />
-      <SignupButton />
+  <BasicScreen>
+    <View flexG center>
+      <Heading>SweepSteaks</Heading>
+      <View marginT-40>
+        <LoginButton />
+        <SignupButton />
+      </View>
     </View>
-  </View>
+  </BasicScreen>
 )
 
 export default Landing

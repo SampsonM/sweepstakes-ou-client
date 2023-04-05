@@ -28,6 +28,7 @@ const appSlice = createSlice({
     },
     logout: (state) => {
       state.loggedIn = false
+      state.me = {}
     },
   },
 })

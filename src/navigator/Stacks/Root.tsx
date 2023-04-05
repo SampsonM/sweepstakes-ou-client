@@ -2,19 +2,17 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { colors } from '../../theme'
-import Landing from '../../pages/Landing'
+import TabNavigator from '../Tabs/Tabs'
 
-export type LoginStackParamList = {
-  Landing: undefined
-  Login: undefined
-  Register: undefined
+export type RootStackParamList = {
+  Root: undefined
 }
 
 // ------------------------------------
 // Constants
 // ------------------------------------
 
-const Stack = createStackNavigator<LoginStackParamList>()
+const Stack = createStackNavigator<RootStackParamList>()
 
 const navigationProps = {
   headerTintColor: 'white',
@@ -26,15 +24,13 @@ const navigationProps = {
 // Navigators
 // ------------------------------------
 
-export const LoginNavigator = () => (
-  <Stack.Navigator initialRouteName="Landing" screenOptions={navigationProps}>
+export const RootNavigator = () => (
+  <Stack.Navigator initialRouteName="Root" screenOptions={navigationProps}>
     <Stack.Screen
-      name="Landing"
-      component={Landing}
+      name="Root"
+      component={TabNavigator}
       options={() => ({
-        title: 'Landing',
         headerShown: false,
-        headerMode: 'screen',
       })}
     />
   </Stack.Navigator>

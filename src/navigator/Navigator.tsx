@@ -1,11 +1,10 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
-import DrawerNavigator from './Drawer'
-import { LoginNavigator } from './Stacks'
+import { HomeNavigator, LoginNavigator } from './Stacks'
 import { appStateSelector } from '../utils/selectors'
-import { Text } from 'react-native'
 import WoodBackground from '../components/WoodBackground'
+import TabNavigator from './Tabs/Tabs'
 
 const MyTheme = {
   colors: {
@@ -22,33 +21,12 @@ const MyTheme = {
 const Navigator = () => {
   const { loggedIn } = appStateSelector()
 
-  // get from rtk call to login
-  const loading = false
-
-  if (loading) {
-    return (
-      <WoodBackground>
-        <Text>Loading...</Text>
-      </WoodBackground>
-    )
-  }
-
-  if (loggedIn) {
-    return (
-      <WoodBackground>
-        <NavigationContainer theme={MyTheme}>
-          <DrawerNavigator />
-        </NavigationContainer>
-      </WoodBackground>
-    )
-  }
-
   return (
-    <WoodBackground>
-      <NavigationContainer theme={MyTheme}>
-        <LoginNavigator />
-      </NavigationContainer>
-    </WoodBackground>
+    <NavigationContainer theme={MyTheme}>
+      <WoodBackground>
+        {loggedIn ? <TabNavigator /> : <LoginNavigator />}
+      </WoodBackground>
+    </NavigationContainer>
   )
 }
 

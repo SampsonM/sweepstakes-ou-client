@@ -1,4 +1,3 @@
-import HeaderLeft from "./HeaderLeft"
-import HeaderTitle from "./HeaderTitle"
+import HeaderTitle from './HeaderTitle'
 
-export { HeaderLeft, HeaderTitle }
+export { HeaderTitle }

@@ -23,7 +23,13 @@ const Button = ({ secondary = false, disabled, ...props }: ButtonProps) => {
   }
 
   return (
-    <UIButton bg-btn-primary-bg btn-primary-text-color marginB-10 disabled={disabled} {...props} />
+    <UIButton
+      bg-btn-primary-bg
+      btn-primary-text-color
+      marginB-10
+      disabled={disabled}
+      {...props}
+    />
   )
 }
 

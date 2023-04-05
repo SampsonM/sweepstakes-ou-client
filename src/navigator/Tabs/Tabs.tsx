@@ -8,48 +8,59 @@ import { HomeNavigator, ProfileNavigator } from '../Stacks'
 import { RouteProp } from '@react-navigation/native'
 
 export type TabNavigatorParamList = {
-  Home: undefined,
-  Profile: undefined
+  HomeNavigator: undefined
+  ProfileNavigator: undefined
 }
 
-export type TabRouteProp = RouteProp<TabNavigatorParamList, 'Home' | 'Profile'>
+export type TabRouteProp = RouteProp<
+  TabNavigatorParamList,
+  'HomeNavigator' | 'ProfileNavigator'
+>
 
 const Tab = createBottomTabNavigator<TabNavigatorParamList>()
 
 const TabNavigator = () => (
   <Tab.Navigator
-    tabBarOptions={{
-      activeTintColor: colors.red,
-      inactiveTintColor: colors.grey,
-      style: {
+    screenOptions={() => ({
+      tabBarActiveTintColor: colors.red,
+      tabBarInactiveTintColor: colors.grey,
+      tabBarStyle: {
         backgroundColor: colors.yellow,
         borderTopColor: 'red',
         height: 90,
+        tabStyle: {
+          paddingTop: 10,
+          paddingBottom: 5,
+        },
+        labelStyle: {
+          fontSize: 14,
+          fontWeight: '500',
+        },
       },
-      tabStyle: {
-        paddingTop: 10,
-        paddingBottom: 5,
-      },
-      labelStyle: {
-        fontSize: 14,
-        fontWeight: '500',
-      },
-    }}
-    initialRouteName="Home"
+    })}
+    initialRouteName="HomeNavigator"
   >
     <Tab.Screen
-      name="Home"
+      name="HomeNavigator"
       component={HomeNavigator}
       options={{
-        tabBarIcon: ({ color, size }) => <FontIcon name="home" color={color} size={size} solid />,
+        headerShown: false,
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color, size }) => (
+          <FontIcon name="home" color={color} size={size} solid />
+        ),
       }}
     />
-    
+
     <Tab.Screen
-      name="Profile"
+      name="ProfileNavigator"
       component={ProfileNavigator}
       options={{
-        tabBarIcon: ({ color, size }) => <FontIcon name="user" color={color} size={size} solid />,
+        headerShown: false,
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({ color, size }) => (
+          <FontIcon name="user" color={color} size={size} solid />
+        ),
       }}
     />
   </Tab.Navigator>

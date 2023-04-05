@@ -19,11 +19,15 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sweepsteaks.ou"
+      "bundleIdentifier": "com.sweepsteaks.ou",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": ["js", "jsx", "svg", "ts", "tsx"]
-    }
+    },
+    "sdkVersion": "48.0.0"
   }
 }

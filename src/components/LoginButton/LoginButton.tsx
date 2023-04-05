@@ -6,30 +6,49 @@ import { useDispatch } from 'react-redux'
 import { authenticate } from '../../slices/app.slice'
 import Button from '../Button'
 import useGoogleAuth from '../../utils/hooks/useGoogleAuth'
-import { useLoginMutation } from '../../slices/user.slice'
+import { UserResponseData, useLoginMutation } from '../../slices/user.slice'
 import { Alert } from 'react-native'
+import SecureStore from '../../utils/secureStore'
 
 export type LoginProps = NativeStackScreenProps<LoginStackParamList, 'Login'>
 
 const LoginButton = () => {
   const dispatch = useDispatch()
-  const [signUp, { isSuccess, data: user, isLoading, error, isError }] = useLoginMutation()
-  const [request, response, initiateGoogleAuth] = useGoogleAuth()
+  const [login, { isSuccess, data, isLoading, error, isError }] =
+    useLoginMutation()
+  const [request, googleOAuthResponse, initiateGoogleAuth] = useGoogleAuth()
 
+  // Handles successful google oauth flow
   useEffect(() => {
-    if (response?.type === 'success' && response.params.id_token) {
-      signUp(response.params.id_token)
+    const responseType = googleOAuthResponse?.type
+    const idToken: string = googleOAuthResponse?.params?.id_token
+    const accessToken: string = googleOAuthResponse?.params?.access_token
+    const googleOauthSuccessful =
+      responseType === 'success' && idToken && accessToken
+
+    if (googleOauthSuccessful) {
+      SecureStore.setGoogleAccessToken(accessToken)
+      login(idToken)
+    } else if (responseType === 'error') {
+      console.log('SOMETHING HAS GONE WRONG WITH GOOGLE OAUTH LOGIN!')
     }
-  }, [response])
+  }, [googleOAuthResponse])
 
+  // Handles successful login response
   useEffect(() => {
-    if (isSuccess) {
-      dispatch(authenticate({ loggedIn: true, checked: true, user }))
+    const handleLoginResponse = async (userData: UserResponseData) => {
+      await SecureStore.setSecureAuthToken(userData.cookie)
+      dispatch(
+        authenticate({ loggedIn: true, checked: true, user: userData.user }),
+      )
     }
-  }, [isSuccess, user])
 
+    if (isSuccess && data) handleLoginResponse(data)
+  }, [isSuccess, data])
+
+  // Handles error response from login
   useEffect(() => {
-    if (isError && error) {
+    if (isError && error?.data?.message) {
       Alert.alert(error.data.message)
     }
   }, [isError, error])
