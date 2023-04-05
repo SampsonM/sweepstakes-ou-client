@@ -2,11 +2,11 @@ import React from 'react'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 import { LoginStackParamList } from '../../navigator/Stacks/Login'
-import LoginButton from '../../components/LoginButton'
-import SignupButton from '../../components/SignupButton'
 import { View } from 'react-native-ui-lib'
 import BasicScreen from '../../components/BasicScreen'
 import { Heading } from '../../components/Typography'
+import AuthButton from '../../components/AuthButton'
+import { useLoginMutation, useSignUpMutation } from '../../slices/user.slice'
 
 export type LandingProps = NativeStackScreenProps<
   LoginStackParamList,
@@ -18,8 +18,16 @@ const Landing = () => (
     <View flexG center>
       <Heading>SweepSteaks</Heading>
       <View marginT-40>
-        <LoginButton />
-        <SignupButton />
+        <AuthButton
+          mutation={useSignUpMutation}
+          type="SIGN_UP"
+          oauth="google"
+        />
+        <AuthButton
+          mutation={useLoginMutation}
+          type="LOGIN"
+          oauth="google"
+        />
       </View>
     </View>
   </BasicScreen>

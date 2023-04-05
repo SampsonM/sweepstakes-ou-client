@@ -5,8 +5,8 @@ import { colors } from '../../theme'
 import Landing from '../../pages/Landing'
 
 export type LoginStackParamList = {
-  Landing: undefined
-  Login: undefined
+  Landing: undefined,
+  Login: undefined,
   Register: undefined
 }
 
