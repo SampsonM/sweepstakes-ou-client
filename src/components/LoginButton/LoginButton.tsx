@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { authenticate } from '../../slices/app.slice'
 import Button from '../Button'
 import useGoogleAuth from '../../utils/hooks/useGoogleAuth'
-import { UserResponseData, useLoginMutation } from '../../slices/user.slice'
+import { UserData, useLoginMutation } from '../../slices/user.slice'
 import { Alert } from 'react-native'
 import SecureStore from '../../utils/secureStore'
 
@@ -28,6 +28,7 @@ const LoginButton = () => {
 
     if (googleOauthSuccessful) {
       SecureStore.setGoogleAccessToken(accessToken)
+      SecureStore.setGoogleIdToken(idToken)
       login(idToken)
     } else if (responseType === 'error') {
       console.log('SOMETHING HAS GONE WRONG WITH GOOGLE OAUTH LOGIN!')
@@ -36,7 +37,7 @@ const LoginButton = () => {
 
   // Handles successful login response
   useEffect(() => {
-    const handleLoginResponse = async (userData: UserResponseData) => {
+    const handleLoginResponse = async (userData: UserData) => {
       await SecureStore.setSecureAuthToken(userData.cookie)
       dispatch(
         authenticate({ loggedIn: true, checked: true, user: userData.user }),

@@ -4,7 +4,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { LoginStackParamList } from '../../navigator/Stacks/Login'
 import { useDispatch } from 'react-redux'
 import { authenticate } from '../../slices/app.slice'
-import { UserResponseData, useSignUpMutation } from '../../slices/user.slice'
+import { UserData, useSignUpMutation } from '../../slices/user.slice'
 import Button from '../Button'
 import useGoogleAuth from '../../utils/hooks/useGoogleAuth'
 import { Alert } from 'react-native'
@@ -28,6 +28,7 @@ const SignupButton = () => {
 
     if (googleOauthSuccessful) {
       SecureStore.setGoogleAccessToken(accessToken)
+      SecureStore.setGoogleIdToken(idToken)
       signUp(idToken)
     } else if (responseType === 'error') {
       console.log('SOMETHING HAS GONE WRONG WITH GOOGLE OAUTH SIGNUP!')
@@ -36,7 +37,7 @@ const SignupButton = () => {
 
   // Handles successful signup response
   useEffect(() => {
-    const handleSignUpResponse = async (userData: UserResponseData) => {
+    const handleSignUpResponse = async (userData: UserData) => {
       await SecureStore.setSecureAuthToken(userData.cookie)
       dispatch(
         authenticate({ loggedIn: true, checked: true, user: userData.user }),

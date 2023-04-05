@@ -19,6 +19,7 @@ const revokeClientAuthSession = async (
 
     await SecureStore.deleteSecureAuthToken()
     await SecureStore.deleteGoogleAccessToken()
+    await SecureStore.deleteGoogleIdToken()
     store.dispatch(logout())
   } catch (err) {
     console.log('Revoking client session failed - ', err)
