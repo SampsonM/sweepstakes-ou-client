@@ -6,7 +6,7 @@ import { LoginStackParamList } from '../../navigator/Stacks/Login'
 import Button from '../Button'
 import { useDeleteAccountMutation } from '../../slices/user.slice'
 import SecureStore from '../../utils/secureStore'
-import revokeClientAuthSession from '../../utils/useRevokeClientSession'
+import revokeClientAuthSession from '../../utils/revokeClientSession'
 
 export type LoginProps = NativeStackScreenProps<LoginStackParamList, 'Login'>
 
