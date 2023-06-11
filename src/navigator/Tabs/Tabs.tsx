@@ -8,7 +8,7 @@ import { HomeNavigator, ProfileNavigator } from '../Stacks'
 import { RouteProp } from '@react-navigation/native'
 
 export type TabNavigatorParamList = {
-  HomeNavigator: undefined
+  HomeNavigator: undefined,
   ProfileNavigator: undefined
 }
 

@@ -3,8 +3,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 import { LoginStackParamList } from '../../navigator/Stacks/Login'
 import { View } from 'react-native-ui-lib'
-import BasicScreen from '../../components/BasicScreen'
-import { Heading } from '../../components/Typography'
+import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
+import { Heading } from '../../components/common/Typography'
 import AuthButton from '../../components/AuthButton'
 import { useLoginMutation, useSignUpMutation } from '../../slices/user.slice'
 
@@ -14,7 +14,7 @@ export type LandingProps = NativeStackScreenProps<
 >
 
 const Landing = () => (
-  <BasicScreen>
+  <BasicScreenWrapper>
     <View flexG center>
       <Heading>SweepSteaks</Heading>
       <View marginT-40>
@@ -30,7 +30,7 @@ const Landing = () => (
         />
       </View>
     </View>
-  </BasicScreen>
+  </BasicScreenWrapper>
 )
 
 export default Landing

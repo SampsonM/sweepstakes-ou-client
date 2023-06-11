@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { useAuthHook, useGetOAuthProvider } from '../../utils/hooks'
-import Button from '../Button'
+import Button from '../common/Button'
 
 export type OAuthProviders = 'google' | 'facebook'
 

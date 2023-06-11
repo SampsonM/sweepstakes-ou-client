@@ -27,9 +27,8 @@ export const HomeNavigator = () => (
       name="Home"
       component={Home}
       options={() => ({
-        title: 'Home',
         headerMode: 'screen',
-        headerTitle: () => <HeaderTitle title="Home" />,
+        headerTitle: () => <HeaderTitle title="SweepSteaks" />,
       })}
     />
   </Stack.Navigator>
@@ -41,7 +40,6 @@ export const ProfileNavigator = () => (
       name="Profile"
       component={Profile}
       options={() => ({
-        title: 'Profile',
         headerMode: 'screen',
         headerTitle: () => <HeaderTitle title="Profile" />,
       })}

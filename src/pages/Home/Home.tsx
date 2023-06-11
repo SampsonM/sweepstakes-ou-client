@@ -1,13 +1,13 @@
 import React from 'react'
 
-import BasicScreen from '../../components/BasicScreen'
-import { Heading } from '../../components/Typography'
+import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
+import { SweepstakeGroups } from '../../components/SweepstakeGroups'
 
 const Home = () => {
   return (
-    <BasicScreen>
-      <Heading>SweepSteaks</Heading>
-    </BasicScreen>
+    <BasicScreenWrapper>
+      <SweepstakeGroups />
+    </BasicScreenWrapper>
   )
 }
 

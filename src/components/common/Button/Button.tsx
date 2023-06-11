@@ -5,7 +5,7 @@ import {
 } from 'react-native-ui-lib'
 
 type ButtonProps = {
-  primary?: boolean
+  primary?: boolean,
   secondary?: boolean
 } & UIBtnProps
 

@@ -2,12 +2,12 @@ import React from 'react'
 
 import DeleteAccountButton from '../../components/DeleteAccountButton/DeleteAccountButton'
 import revokeClientAuthSession from '../../utils/revokeClientSession'
-import Button from '../../components/Button'
-import BasicScreen from '../../components/BasicScreen'
+import Button from '../../components/common/Button'
+import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
 
 const Profile = () => {
   return (
-    <BasicScreen>
+    <BasicScreenWrapper>
       <DeleteAccountButton />
 
       <Button
@@ -15,7 +15,7 @@ const Profile = () => {
         label="Sign out"
         onPress={() => revokeClientAuthSession()}
       />
-    </BasicScreen>
+    </BasicScreenWrapper>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import Wood from '../svg/Wood'
+import Wood from '../../assets/svg/Wood'
 
 const WoodBackground = ({ children }: any) => {
   return (

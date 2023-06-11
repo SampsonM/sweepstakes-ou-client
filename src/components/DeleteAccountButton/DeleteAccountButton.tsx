@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Alert } from 'react-native'
 
-import { LoginStackParamList } from '../../navigator/Stacks/Login'
-import Button from '../Button'
+import Button from '../common/Button'
 import { useDeleteAccountMutation } from '../../slices/user.slice'
 import SecureStore from '../../utils/secureStore'
 import revokeClientAuthSession from '../../utils/revokeClientSession'
-
-export type LoginProps = NativeStackScreenProps<LoginStackParamList, 'Login'>
 
 const DeleteAccountButton = () => {
   const [isLocalLoading, setLocalIsLoading] = useState(false)

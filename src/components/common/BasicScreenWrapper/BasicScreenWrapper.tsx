@@ -2,7 +2,7 @@ import React from 'react'
 import { StatusBar } from 'react-native'
 import { View } from 'react-native-ui-lib'
 
-const BasicScreen = ({ children }: { children: React.ReactNode }) => {
+const BasicScreenWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <View
       useSafeArea
@@ -19,4 +19,4 @@ const BasicScreen = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default BasicScreen
+export default BasicScreenWrapper

@@ -9,8 +9,8 @@ import SecureStore from '../utils/secureStore'
 import { useVerifyMutation } from '../slices/user.slice'
 import { useDispatch } from 'react-redux'
 import { authenticate } from '../slices/app.slice'
-import { Heading } from '../components/Typography'
-import BasicScreen from '../components/BasicScreen'
+import { Heading } from '../components/common/Typography'
+import BasicScreen from '../components/common/BasicScreenWrapper'
 
 const MyTheme = {
   colors: {
