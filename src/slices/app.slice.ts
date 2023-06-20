@@ -1,14 +1,35 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { UserData } from './user.slice'
+import { Group } from './group.slice'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
 
-const initialState = {
+type AuthData = {
+  loggedIn: boolean;
+  checked: boolean;
+  userData: UserData;
+}
+
+type InitialState = {
+  checked: boolean;
+  loggedIn: boolean;
+  userData: UserData
+}
+
+export const initialState: InitialState = {
   checked: false,
   loggedIn: false,
-  me: {},
+  userData: {
+    user: {
+      id: '',
+      picture: '',
+      fullName: '',
+    },
+    groups: [],
+  },
 }
 
 // ------------------------------------
@@ -19,22 +40,22 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    authenticate: (state, { payload }) => {
+    authenticate: (state, { payload }: PayloadAction<AuthData>) => {
       state.loggedIn = payload.loggedIn
       state.checked = payload.checked
-      state.me = payload.user
-    },
-    saveMe: (state, { payload }) => {
-      state.me = payload.me
+      state.userData = payload.userData
     },
     logout: (state) => {
       state.loggedIn = false
-      state.me = {}
+      state.userData = initialState.userData
     },
+    setGroups: (state, { payload }: PayloadAction<Group[]>) => {
+      state.userData.groups = payload
+    }
   },
 })
 
 export const { actions } = appSlice
-export const { authenticate, saveMe, logout } = appSlice.actions
+export const { authenticate, logout, setGroups } = appSlice.actions
 
 export default appSlice.reducer

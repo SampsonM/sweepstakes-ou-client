@@ -11,8 +11,12 @@ const setSecureAuthToken = async (cookie: string) => {
 }
 
 const getSecureAuthToken = async () => {
-  const token = await SecureStore.getItemAsync(AUTH_TOKEN_KEY)
-  return token || ''
+  try {
+    const token = await SecureStore.getItemAsync(AUTH_TOKEN_KEY)
+    return token || ''
+  } catch (error) {
+    return ''
+  }
 }
 
 const deleteSecureAuthToken = async () => {
@@ -24,8 +28,12 @@ const setGoogleAccessToken = async (accessToken: string) => {
 }
 
 const getGoogleAccessToken = async () => {
-  const token = await SecureStore.getItemAsync(GOOGLE_ACCESS_TOKEN_KEY)
-  return token || ''
+  try {
+    const token = await SecureStore.getItemAsync(GOOGLE_ACCESS_TOKEN_KEY)
+    return token || ''
+  } catch (error) {
+    return ''
+  }
 }
 
 const deleteGoogleAccessToken = async () => {
@@ -37,8 +45,12 @@ const setGoogleIdToken = async (idToken: string) => {
 }
 
 const getGoogleIdToken = async () => {
-  const token = await SecureStore.getItemAsync(GOOGLE_ACCESS_ID_KEY)
-  return token || ''
+  try {
+    const token = await SecureStore.getItemAsync(GOOGLE_ACCESS_ID_KEY)
+    return token || ''
+  } catch (error) {
+    return ''
+  }
 }
 
 const deleteGoogleIdToken = async () => {

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import SecureStore from "../secureStore"
 import { AuthSessionResult } from "expo-auth-session"
 import { useDispatch } from "react-redux"
 import { authenticate } from "../../slices/app.slice"
 import { Alert } from "react-native"
-import { UserData } from "../../slices/user.slice"
+import { UserResponseData } from "../../slices/user.slice"
 
 /**
  * Hook calls a given sign-up or login mutation when google oauth response is successful.
@@ -36,23 +36,24 @@ const useAuthHook = (oAuthResponse: AuthSessionResult | null, mutation: any) => 
 			SecureStore.setGoogleIdToken(idToken)
 			initiator(idToken)
 		} else if (responseType === 'error') {
-			console.log('SOMETHING HAS GONE WRONG WITH GOOGLE OAUTH!')
+			Alert.alert('SOMETHING HAS GONE WRONG WITH OAUTH!')
+			console.log('SOMETHING HAS GONE WRONG WITH OAUTH!')
 		}
 	}, [oAuthResponse])
 
-	// Handles successful login response
+	// Handles successful login/signup response
 	useEffect(() => {
-		const handleMutationResponse = async (userData: UserData) => {
-			await SecureStore.setSecureAuthToken(userData.cookie)
+		const handleMutationResponse = async ({ cookie, data: userData }: UserResponseData) => {
+			await SecureStore.setSecureAuthToken(cookie)
 			dispatch(
-				authenticate({ loggedIn: true, checked: true, user: userData.user }),
+				authenticate({ loggedIn: true, checked: true, userData }),
 			)
 		}
 
 		if (isSuccess && data) handleMutationResponse(data)
 	}, [isSuccess, data])
 
-	// Handles error response from login
+	// Handles error response from login/signup
 	useEffect(() => {
 		if (isError && error?.data?.message) {
 			Alert.alert(error.data.message)

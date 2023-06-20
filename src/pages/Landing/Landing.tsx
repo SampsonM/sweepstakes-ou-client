@@ -21,12 +21,12 @@ const Landing = () => (
         <AuthButton
           mutation={useSignUpMutation}
           type="SIGN_UP"
-          oauth="google"
+          oauthProvider="google"
         />
         <AuthButton
           mutation={useLoginMutation}
           type="LOGIN"
-          oauth="google"
+          oauthProvider="google"
         />
       </View>
     </View>

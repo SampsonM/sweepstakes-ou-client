@@ -1,10 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-// import logger from 'redux-logger'
 import appReducer from '../slices/app.slice'
 import { userApi } from '../slices/user.slice'
+import { groupApi } from '../slices/group.slice'
 
 const rootReducer = combineReducers({
   app: appReducer,
+  [groupApi.reducerPath]: groupApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
 })
 
@@ -14,7 +15,7 @@ const store = configureStore({
     const defaultMiddleware = getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    }).concat(userApi.middleware)
+    }).concat(userApi.middleware, groupApi.middleware)
 
     return __DEV__ ? defaultMiddleware : defaultMiddleware
   },

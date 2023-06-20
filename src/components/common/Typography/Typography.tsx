@@ -11,4 +11,10 @@ const Heading = ({ children }: TypographyProps) => (
   </Text>
 )
 
-export { Heading }
+const H3 = ({ children }: TypographyProps) => (
+  <Text text20 marginB-10>
+    {children}
+  </Text>
+)
+
+export { Heading, H3 }

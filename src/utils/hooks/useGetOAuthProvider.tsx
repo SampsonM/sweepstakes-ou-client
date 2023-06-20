@@ -5,8 +5,8 @@ import useGoogleAuth from "./useGoogleAuth"
 import { OAuthProviders } from "../../components/AuthButton/AuthButton"
 
 
-const useGetOAuthProvider = (oauth: OAuthProviders = 'google') => {
-	if (oauth === 'facebook') {
+const useGetOAuthProvider = (oauthProvider: OAuthProviders = 'google') => {
+	if (oauthProvider === 'facebook') {
 		throw new Error("Not possible to use FB auth yet!")
 	}
 

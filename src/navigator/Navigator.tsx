@@ -8,7 +8,7 @@ import TabNavigator from './Tabs/Tabs'
 import SecureStore from '../utils/secureStore'
 import { useVerifyMutation } from '../slices/user.slice'
 import { useDispatch } from 'react-redux'
-import { authenticate } from '../slices/app.slice'
+import { authenticate, initialState } from '../slices/app.slice'
 import { Heading } from '../components/common/Typography'
 import BasicScreen from '../components/common/BasicScreenWrapper'
 
@@ -44,7 +44,7 @@ const Navigator = () => {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(true)
   const { loggedIn } = appStateSelector()
-  const [verify, { data: user, isSuccess, error, isError, reset }] = useVerifyMutation()
+  const [verify, { data, isSuccess, error, isError, reset }] = useVerifyMutation()
 
   // Handles calling verify API 
   useEffect(() => {
@@ -60,16 +60,16 @@ const Navigator = () => {
 
   // Handles successful verification
   useEffect(() => {
-    if (isSuccess && user) {
-      dispatch(authenticate({ loggedIn: true, checked: true, user }))
+    if (isSuccess && data) {
+      dispatch(authenticate({ loggedIn: true, checked: true, userData: data.data }))
       setIsLoading(false)
     }
-  }, [isSuccess, user])
+  }, [isSuccess, data])
 
   // Handles failed verification
   useEffect(() => {
     if (isError && error) {
-      dispatch(authenticate({ loggedIn: false, checked: true, user: {} }))
+      dispatch(authenticate({ loggedIn: false, checked: true, userData: { ...initialState.userData } }))
       setIsLoading(false)
     }
   }, [isError, error])

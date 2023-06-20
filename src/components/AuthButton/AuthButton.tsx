@@ -8,18 +8,18 @@ export type OAuthProviders = 'google' | 'facebook'
 export type AuthButtonProps = {
   mutation: any,
   type: 'SIGN_UP' | 'LOGIN',
-  oauth: OAuthProviders
+  oauthProvider: OAuthProviders
 }
 
-const AuthButton = ({ mutation, type, oauth }: AuthButtonProps) => {
-  const [oauthRequest, oauthResponse, initiateOAuth] = useGetOAuthProvider(oauth)
+const AuthButton = ({ mutation, type, oauthProvider }: AuthButtonProps) => {
+  const [oauthRequest, oauthResponse, initiateOAuth] = useGetOAuthProvider(oauthProvider)
   const { isLoading } = useAuthHook(oauthResponse, mutation)
 
   const label = useMemo(() => {
     if (type === 'LOGIN') {
-      return `Login with ${oauth}`
+      return `Login with ${oauthProvider}`
     } else {
-      return `Sign-up with ${oauth}`
+      return `Sign-up with ${oauthProvider}`
     }
   }, [])
 
