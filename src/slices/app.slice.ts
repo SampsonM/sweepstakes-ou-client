@@ -16,7 +16,8 @@ type AuthData = {
 type InitialState = {
   checked: boolean;
   loggedIn: boolean;
-  userData: UserData
+  userData: UserData;
+  selectedGroupName: string;
 }
 
 export const initialState: InitialState = {
@@ -30,6 +31,7 @@ export const initialState: InitialState = {
     },
     groups: [],
   },
+  selectedGroupName: '',
 }
 
 // ------------------------------------
@@ -51,11 +53,14 @@ const appSlice = createSlice({
     },
     setGroups: (state, { payload }: PayloadAction<Group[]>) => {
       state.userData.groups = payload
+    },
+    setSelectedGroup(state, { payload }) { 
+      state.selectedGroupName = payload
     }
   },
 })
 
 export const { actions } = appSlice
-export const { authenticate, logout, setGroups } = appSlice.actions
+export const { authenticate, logout, setGroups, setSelectedGroup } = appSlice.actions
 
 export default appSlice.reducer

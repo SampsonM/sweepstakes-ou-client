@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Group } from './group.slice';
+import { Group } from './group.slice'
 
 export type User = {
   id: string;

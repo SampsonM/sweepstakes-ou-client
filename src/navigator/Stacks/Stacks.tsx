@@ -10,13 +10,22 @@ import type { CompositeNavigationProp } from '@react-navigation/native'
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import type { StackNavigationProp } from '@react-navigation/stack'
 import { TabNavigatorParamList } from '../Tabs/Tabs'
-import { Group } from '../../slices/group.slice'
+import Landing from '../../pages/Landing'
 
 export type HomeStackParamList = {
   Home: undefined;
-  SweepstakeGroup: Group;
+  SweepstakeGroup: undefined;
 };
 
+export type ProfileStackParamList = {
+  Profile: undefined;
+};
+
+export type LoginStackParamList = {
+  Landing: undefined,
+  Login: undefined,
+  Register: undefined
+}
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabNavigatorParamList, 'HomeNavigator'>,
@@ -27,7 +36,9 @@ export type HomeScreenNavigationProp = CompositeNavigationProp<
 // Constants
 // ------------------------------------
 
-const Stack = createStackNavigator<HomeStackParamList>()
+const HomeStack = createStackNavigator<HomeStackParamList>()
+const ProfileStack = createStackNavigator<ProfileStackParamList>()
+const LoginStack = createStackNavigator<LoginStackParamList>()
 
 const navigationProps = {
   headerTintColor: 'white',
@@ -40,8 +51,8 @@ const navigationProps = {
 // ------------------------------------
 
 export const HomeNavigator = () => (
-  <Stack.Navigator initialRouteName="Home" screenOptions={navigationProps}>
-    <Stack.Screen
+  <HomeStack.Navigator initialRouteName="Home" screenOptions={navigationProps}>
+    <HomeStack.Screen
       name="Home"
       component={Home}
       options={() => ({
@@ -49,7 +60,7 @@ export const HomeNavigator = () => (
         headerTitle: () => <HeaderTitle title="SweepSteaks" />,
       })}
     />
-    <Stack.Screen
+    <HomeStack.Screen
       name="SweepstakeGroup"
       component={SweepstakeGroup}
       options={() => ({
@@ -57,12 +68,12 @@ export const HomeNavigator = () => (
         headerTitle: () => <HeaderTitle title="Groups" />,
       })}
     />
-  </Stack.Navigator>
+  </HomeStack.Navigator>
 )
 
 export const ProfileNavigator = () => (
-  <Stack.Navigator initialRouteName="Profile" screenOptions={navigationProps}>
-    <Stack.Screen
+  <ProfileStack.Navigator initialRouteName="Profile" screenOptions={navigationProps}>
+    <ProfileStack.Screen
       name="Profile"
       component={Profile}
       options={() => ({
@@ -70,5 +81,20 @@ export const ProfileNavigator = () => (
         headerTitle: () => <HeaderTitle title="Profile" />,
       })}
     />
-  </Stack.Navigator>
+  </ProfileStack.Navigator>
 )
+
+export const LoginNavigator = () => (
+  <LoginStack.Navigator initialRouteName="Landing" screenOptions={navigationProps}>
+    <LoginStack.Screen
+      name="Landing"
+      component={Landing}
+      options={() => ({
+        title: 'Landing',
+        headerShown: false,
+        headerMode: 'screen',
+      })}
+    />
+  </LoginStack.Navigator>
+)
+

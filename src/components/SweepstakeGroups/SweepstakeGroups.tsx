@@ -8,12 +8,20 @@ import { UserData } from '../../slices/user.slice'
 import { useNavigation } from '@react-navigation/native'
 import { HomeScreenNavigationProp } from '../../navigator/Stacks/Stacks'
 import { Group } from '../../slices/group.slice'
+import { setSelectedGroup } from '../../slices/app.slice'
+import { useDispatch } from 'react-redux'
 
 export const SweepstakeGroup = ({ group }: { group: Group }) => {
+	const dispatch = useDispatch()
 	const navigation = useNavigation<HomeScreenNavigationProp>()
 
+	const handleGroupNavigation = () => {
+		dispatch(setSelectedGroup(group.groupName))
+		navigation.navigate('SweepstakeGroup')
+	}
+
 	return (
-		<Card marginB-10 padding-10 onPress={() => navigation.navigate('SweepstakeGroup', { ...group })}>
+		<Card marginB-10 padding-10 onPress={handleGroupNavigation}>
 			<Text>Group Name - {group.groupName}</Text>
 			<Text>Members: {group.members?.length ?? 0}</Text>
 			<Text>Rounds: {group.rounds?.length ?? 0}</Text>

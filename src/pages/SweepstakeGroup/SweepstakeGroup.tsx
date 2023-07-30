@@ -1,28 +1,30 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Card, Text, View } from 'react-native-ui-lib'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
 import Button from '../../components/common/Button'
-import { HomeScreenNavigationProp, HomeStackParamList } from '../../navigator/Stacks/Stacks'
+import { HomeScreenNavigationProp } from '../../navigator/Stacks/Stacks'
 import { useDeleteGroupMutation } from '../../slices/group.slice'
 import secureStore from '../../utils/secureStore'
 import { UserData } from '../../slices/user.slice'
-import { userDataSelector } from '../../utils/selectors'
+import { selectedGroupNameSelector, userDataSelector } from '../../utils/selectors'
 import { setGroups } from '../../slices/app.slice'
 import { removeGroupFromGroups } from '../../utils/removeGroupFromGroups'
 import { GroupMemberListItem } from './GroupMemberListItem'
 
-type Props = NativeStackScreenProps<HomeStackParamList, 'SweepstakeGroup'>;
-
-const SweepstakeGroup = ({ route }: Props) => {
-	const group = route.params
-	const [deleteGroupInitiator, { isLoading, isSuccess, isError, error }] = useDeleteGroupMutation()
+const SweepstakeGroup = () => {
 	const navigation = useNavigation<HomeScreenNavigationProp>()
-	const userData: UserData = userDataSelector()
 	const dispatch = useDispatch()
+	const [deleteGroupInitiator, { isLoading, isSuccess, isError, error }] = useDeleteGroupMutation()
+	const selectedGroupName: string = selectedGroupNameSelector()
+	const userData: UserData = userDataSelector()
+	const group = userData.groups.find(({ groupName }) => groupName === selectedGroupName)
+
+	if (!group) {
+		return null
+	}
 
 	const handleDeleteGroup = async () => {
 		const authToken = await secureStore.getSecureAuthToken()
@@ -45,6 +47,15 @@ const SweepstakeGroup = ({ route }: Props) => {
 					<Text subheading>Group Name</Text>
 					<Text body>{group.groupName}</Text>
 				</View>
+
+				{group.invitePhrase ?
+					<View paddingB-s5>
+						<Text subheading>Invite Phrase</Text>
+						<Text body>Share this with people you want to invite</Text>
+						<Text body>{group.invitePhrase}</Text>
+					</View>
+					: null
+				}
 
 				<Text subheading>Members:</Text>
 
