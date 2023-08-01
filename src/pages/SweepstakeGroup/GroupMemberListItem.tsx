@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		display: 'flex',
 		alignSelf: 'center',
-		lineHeight: 20
+		lineHeight: 20,
 	},
 	container: {
-		marginBottom: 10
+		marginBottom: 10,
+		backgroundColor: colors['dark-yellow']
 	}
 })
 

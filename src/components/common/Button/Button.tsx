@@ -5,31 +5,25 @@ import {
 } from 'react-native-ui-lib'
 
 type ButtonProps = {
-  primary?: boolean,
-  secondary?: boolean
+  type?: 'primary' | 'secondary' | 'tertiary',
 } & UIBtnProps
 
-const Button = ({ secondary = false, disabled, ...props }: ButtonProps) => {
-  if (secondary) {
-    return (
-      <UIButton
-        bg-btn-secondary-bg
-        btn-secondary-text-color
-        marginB-10
-        disabled={disabled}
-        style={{ borderRadius: 10 }}
-        {...props}
-      />
-    )
+const Button = ({ type = 'primary', disabled, ...props }: ButtonProps) => {
+  const computedStyleProps = {
+    'bg-btn-secondary-bg': type == 'secondary',
+    'btn-secondary-text-color': type == 'secondary',
+    'bg-btn-primary-bg': type == 'primary',
+    'btn-primary-text-color': type == 'primary',
+    'bg-btn-tertiary-bg': type == 'tertiary',
+    'btn-tertiary-text-color': type == 'tertiary',
+    'marginB-10': true
   }
 
   return (
     <UIButton
-      bg-btn-primary-bg
-      btn-primary-text-color
-      marginB-10
       disabled={disabled}
       style={{ borderRadius: 10 }}
+      {...computedStyleProps}
       {...props}
     />
   )

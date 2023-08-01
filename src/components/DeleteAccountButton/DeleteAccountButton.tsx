@@ -36,6 +36,7 @@ const DeleteAccountButton = () => {
     <Button
       disabled={isLoading || isLocalLoading}
       label="Delete Account"
+      type='secondary'
       onPress={() => handleDelete()}
     />
   )

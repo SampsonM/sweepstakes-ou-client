@@ -25,7 +25,7 @@ const AuthButton = ({ mutation, type, oauthProvider }: AuthButtonProps) => {
 
   return (
     <Button
-      secondary={type === "SIGN_UP"}
+      type={type === "SIGN_UP" ? 'secondary' : 'primary'}
       disabled={!oauthRequest || isLoading}
       label={label}
       onPress={() => initiateOAuth()}

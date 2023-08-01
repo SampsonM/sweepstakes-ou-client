@@ -77,7 +77,7 @@ export const HomeNavigator = () => (
       component={SweepstakeGroup}
       options={() => ({
         headerMode: 'screen',
-        headerTitle: () => <HeaderTitle title="Groups" />,
+        headerTitle: () => <HeaderTitle title="Group" />,
         headerBackTitleStyle: { color: 'black' },
         headerTintColor: '#000'
       })}

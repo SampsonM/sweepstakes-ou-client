@@ -42,15 +42,13 @@ const SweepstakeGroup = () => {
 		<BasicScreenWrapper>
 			<BlurCard>
 				<>
-					<View paddingB-s5>
-						<Text subheading>Group Name</Text>
-						<Text body>{group.groupName}</Text>
+					<View paddingB-s5 >
+						<Text subheading>Name: {group.groupName}</Text>
 					</View>
 
-					{group.invitePhrase ?
+					{group.invitePhrase && group.isOwner ?
 						<View paddingB-s5>
 							<Text subheading>Invite Phrase</Text>
-							<Text body>Share this with people you want to invite</Text>
 							<Text body>{group.invitePhrase}</Text>
 						</View>
 						: null
@@ -79,14 +77,13 @@ const SweepstakeGroup = () => {
 							/>
 						</>
 					)}
+
+					{
+						group.isOwner &&
+						<Button label='Delete group' type='secondary' disabled={isLoading} onPress={handleDeleteGroup} />
+					}
 				</>
 			</BlurCard>
-
-
-			{
-				group.isOwner &&
-				<Button label='Delete group' disabled={isLoading} onPress={handleDeleteGroup} />
-			}
 
 			{isLoading && <Text>Loading...</Text>}
 			{isError && <Text>{JSON.stringify(error)}</Text>}

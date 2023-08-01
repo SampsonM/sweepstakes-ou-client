@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
 import Button from '../../components/common/Button'
-import { Card, Text } from 'react-native-ui-lib'
+import { Card, Dialog, PanningProvider, Text } from 'react-native-ui-lib'
 import secureStore from '../../utils/secureStore'
 import { useJoinGroupMutation } from '../../slices/group.slice'
 import { setGroups } from '../../slices/app.slice'
@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native'
 const Home = () => {
   const [groupName, setGroupName] = useState('')
   const [groupInvitePhrase, setGroupInvitePhrase] = useState('')
+  const [isLearnMoreVisible, setLearnMoreVisible] = useState(false)
   const [showJoinGroupSuccessCard, setShowJoinGroupSuccessCard] = useState(false)
   const [joinGroupInitiator, joinGroupData] = useJoinGroupMutation()
   const dispatch = useDispatch()
@@ -28,6 +29,9 @@ const Home = () => {
     joinGroupInitiator({ authToken, groupName, groupMemberId: userData.user.id, groupInvitePhrase })
   }
 
+  const handleLearnMore = () => {
+    setLearnMoreVisible(true)
+  }
 
   useEffect(() => {
     navigation.addListener('blur', () => {
@@ -58,6 +62,19 @@ const Home = () => {
         </Card>
         : null}
 
+      <Dialog
+        visible={isLearnMoreVisible}
+        onDismiss={() => setLearnMoreVisible(false)}
+        panDirection={PanningProvider.Directions.DOWN}
+      >
+        <Card marginB-10 padding-10>
+          <Text text70 marginB-10>After joining a group you can view the group by selecting a group in the groups section of the app.</Text>
+          <Text text70 marginB-10>Once everyone has joined the group owner can start the process of starting a sweepstake round.</Text>
+
+          <Button label='Close' onPress={() => setLearnMoreVisible(false)} />
+        </Card>
+      </Dialog>
+
       <BlurCard>
         {
           joinGroupData.isLoading
@@ -83,7 +100,9 @@ const Home = () => {
                 maxLength={40}
               />
 
-              <Button label='Join group!' onPress={handleJoinGroup} />
+              <Button label='Join group' onPress={handleJoinGroup} />
+              <Button type='tertiary' label='Learn more +' onPress={handleLearnMore} />
+
             </>
         }
       </BlurCard>

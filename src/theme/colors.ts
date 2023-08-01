@@ -32,6 +32,8 @@ Colors.loadColors({
   'btn-primary-bg': colors.blue,
   'btn-secondary-text-color': colors['light-gold'],
   'btn-secondary-bg': colors['dark-red'],
+  'btn-tertiary-text-color': colors['light-gold'],
+  'btn-tertiary-bg': colors.grey,
 })
 
 export default colors

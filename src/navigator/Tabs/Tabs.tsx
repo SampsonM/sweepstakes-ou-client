@@ -47,9 +47,9 @@ const TabNavigator = () => (
       component={HomeNavigator}
       options={{
         headerShown: false,
-        tabBarLabel: 'Home',
+        tabBarLabel: 'Groups',
         tabBarIcon: ({ color, size }) => (
-          <FontIcon name="home" color={color} size={size} solid />
+          <FontIcon name="users" color={color} size={size} solid />
         ),
       }}
     />

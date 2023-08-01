@@ -32,7 +32,7 @@ const Profile = () => {
           <DeleteAccountButton />
 
           <Button
-            secondary
+            type="primary"
             label="Sign out"
             onPress={() => revokeClientAuthSession()}
           />

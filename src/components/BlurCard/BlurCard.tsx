@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		flex: 1,
 		backgroundColor: 'transparent',
-		borderRadius: 20,
+		borderRadius: 15,
 		overflow: 'hidden'
 	}
 })
