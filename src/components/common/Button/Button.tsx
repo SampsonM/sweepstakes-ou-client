@@ -17,6 +17,7 @@ const Button = ({ secondary = false, disabled, ...props }: ButtonProps) => {
         btn-secondary-text-color
         marginB-10
         disabled={disabled}
+        style={{ borderRadius: 10 }}
         {...props}
       />
     )
@@ -28,6 +29,7 @@ const Button = ({ secondary = false, disabled, ...props }: ButtonProps) => {
       btn-primary-text-color
       marginB-10
       disabled={disabled}
+      style={{ borderRadius: 10 }}
       {...props}
     />
   )

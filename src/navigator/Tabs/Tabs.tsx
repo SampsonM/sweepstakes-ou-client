@@ -4,17 +4,19 @@ import FontIcon from 'react-native-vector-icons/FontAwesome5'
 
 import { colors } from '../../theme'
 
-import { HomeNavigator, ProfileNavigator } from '../Stacks'
+import { CreateGroupNavigator, HomeNavigator, JoinGroupNavigator, ProfileNavigator } from '../Stacks'
 import { RouteProp } from '@react-navigation/native'
 
 export type TabNavigatorParamList = {
   HomeNavigator: undefined,
-  ProfileNavigator: undefined
+  ProfileNavigator: undefined,
+  CreateGroupNavigator: undefined,
+  JoinGroupNavigator: undefined
 }
 
 export type TabRouteProp = RouteProp<
   TabNavigatorParamList,
-  'HomeNavigator' | 'ProfileNavigator'
+  'HomeNavigator' | 'ProfileNavigator' | 'CreateGroupNavigator' | 'JoinGroupNavigator'
 >
 
 const Tab = createBottomTabNavigator<TabNavigatorParamList>()
@@ -48,6 +50,30 @@ const TabNavigator = () => (
         tabBarLabel: 'Home',
         tabBarIcon: ({ color, size }) => (
           <FontIcon name="home" color={color} size={size} solid />
+        ),
+      }}
+    />
+
+    <Tab.Screen
+      name="CreateGroupNavigator"
+      component={CreateGroupNavigator}
+      options={{
+        headerShown: false,
+        tabBarLabel: 'Create Group',
+        tabBarIcon: ({ color, size }) => (
+          <FontIcon name="plus-square" color={color} size={size} solid />
+        ),
+      }}
+    />
+
+    <Tab.Screen
+      name="JoinGroupNavigator"
+      component={JoinGroupNavigator}
+      options={{
+        headerShown: false,
+        tabBarLabel: 'Join Group',
+        tabBarIcon: ({ color, size }) => (
+          <FontIcon name="user-plus" color={color} size={size} solid />
         ),
       }}
     />

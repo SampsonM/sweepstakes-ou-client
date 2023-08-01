@@ -12,6 +12,7 @@ import { selectedGroupNameSelector, userDataSelector } from '../../utils/selecto
 import { setGroups } from '../../slices/app.slice'
 import { GroupMemberListItem } from './GroupMemberListItem'
 import { BlurView } from 'expo-blur'
+import BlurCard from '../../components/BlurCard'
 
 const SweepstakeGroup = () => {
 	const navigation = useNavigation<HomeScreenNavigationProp>()
@@ -39,9 +40,8 @@ const SweepstakeGroup = () => {
 
 	return (
 		<BasicScreenWrapper>
-			<Card margin-0 marginB-10 style={{ width: '100%', height: 400, backgroundColor: 'transparent', borderRadius: 25, overflow: 'hidden' }}>
-				<BlurView intensity={15} tint='dark' style={{ margin: 0, padding: 10, height: '100%', borderRadius: 50 }}>
-
+			<BlurCard>
+				<>
 					<View paddingB-s5>
 						<Text subheading>Group Name</Text>
 						<Text body>{group.groupName}</Text>
@@ -79,10 +79,8 @@ const SweepstakeGroup = () => {
 							/>
 						</>
 					)}
-
-
-				</BlurView>
-			</Card>
+				</>
+			</BlurCard>
 
 
 			{

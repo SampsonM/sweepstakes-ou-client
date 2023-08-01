@@ -11,6 +11,8 @@ import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import type { StackNavigationProp } from '@react-navigation/stack'
 import { TabNavigatorParamList } from '../Tabs/Tabs'
 import Landing from '../../pages/Landing'
+import CreateGroup from '../../pages/CreateGroup'
+import JoinGroup from '../../pages/JoinGroup'
 
 export type HomeStackParamList = {
   Home: undefined;
@@ -19,6 +21,14 @@ export type HomeStackParamList = {
 
 export type ProfileStackParamList = {
   Profile: undefined;
+};
+
+export type CreateGroupStackParamList = {
+  CreateGroup: undefined;
+};
+
+export type JoinGroupStackParamList = {
+  JoinGroup: undefined;
 };
 
 export type LoginStackParamList = {
@@ -38,6 +48,8 @@ export type HomeScreenNavigationProp = CompositeNavigationProp<
 
 const HomeStack = createStackNavigator<HomeStackParamList>()
 const ProfileStack = createStackNavigator<ProfileStackParamList>()
+const CreateGroupStack = createStackNavigator<CreateGroupStackParamList>()
+const JoinGroupStack = createStackNavigator<JoinGroupStackParamList>()
 const LoginStack = createStackNavigator<LoginStackParamList>()
 
 const navigationProps = {
@@ -84,6 +96,32 @@ export const ProfileNavigator = () => (
       })}
     />
   </ProfileStack.Navigator>
+)
+
+export const CreateGroupNavigator = () => (
+  <CreateGroupStack.Navigator initialRouteName="CreateGroup">
+    <CreateGroupStack.Screen
+      name="CreateGroup"
+      component={CreateGroup}
+      options={() => ({
+        headerMode: 'screen',
+        headerTitle: () => <HeaderTitle title="Create Group" />,
+      })}
+    />
+  </CreateGroupStack.Navigator>
+)
+
+export const JoinGroupNavigator = () => (
+  <JoinGroupStack.Navigator initialRouteName="JoinGroup">
+    <JoinGroupStack.Screen
+      name="JoinGroup"
+      component={JoinGroup}
+      options={() => ({
+        headerMode: 'screen',
+        headerTitle: () => <HeaderTitle title="Join Group" />,
+      })}
+    />
+  </JoinGroupStack.Navigator>
 )
 
 export const LoginNavigator = () => (
