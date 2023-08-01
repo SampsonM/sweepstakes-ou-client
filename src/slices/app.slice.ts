@@ -13,7 +13,7 @@ type AuthData = {
   userData: UserData;
 }
 
-type InitialState = {
+export type InitialState = {
   checked: boolean;
   loggedIn: boolean;
   userData: UserData;

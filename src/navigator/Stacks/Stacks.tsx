@@ -66,6 +66,8 @@ export const HomeNavigator = () => (
       options={() => ({
         headerMode: 'screen',
         headerTitle: () => <HeaderTitle title="Groups" />,
+        headerBackTitleStyle: { color: 'black' },
+        headerTintColor: '#000'
       })}
     />
   </HomeStack.Navigator>

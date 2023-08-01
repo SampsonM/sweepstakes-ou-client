@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux"
 import { RootState } from "./store"
+import { UserData } from "../slices/user.slice"
+import { InitialState } from "../slices/app.slice"
 
-export const appStateSelector = () => useSelector((state: RootState) => state.app)
+export const appStateSelector = (): InitialState => useSelector((state: RootState) => state.app)
 
-export const userDataSelector = () => useSelector((state: RootState) => state.app.userData)
+export const userDataSelector = (): UserData => useSelector((state: RootState) => state.app.userData)
 
-export const selectedGroupNameSelector = () => useSelector((state: RootState) => state.app.selectedGroupName)
+export const selectedGroupNameSelector = (): string => useSelector((state: RootState) => state.app.selectedGroupName)

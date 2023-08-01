@@ -21,6 +21,11 @@ type DeleteGroupMemberResponse = {
   groups: Group[];
 }
 
+type DeleteGroupResponse = {
+  groups: Group[];
+  deletedGroup: Group;
+}
+
 export interface GroupResponse<T>{
   data: T
 }
@@ -72,7 +77,7 @@ export const groupApi = createApi({
     }),
     deleteGroup: builder.mutation<Group[], DeleteGroupData>({
       query: ({ groupName, authToken }) => ({ url: `groups/${groupName}`, headers: { Authorization: `Bearer ${authToken}`.toString() }, method: 'DELETE' }),
-      transformResponse: (res: GroupResponse<Group[]>) => res.data,
+      transformResponse: (res: GroupResponse<DeleteGroupResponse>) => res.data.groups,
     }),
     deleteGroupMember: builder.mutation<DeleteGroupMemberResponse, DeleteGroupMemberData>({
       query: ({ groupName, authToken, groupMemberId }) => ({ url: `groups/${groupName}/member/${groupMemberId}`, headers: { Authorization: `Bearer ${authToken}`.toString() }, method: 'DELETE' }),
