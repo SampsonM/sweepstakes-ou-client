@@ -13,10 +13,14 @@ import { TabNavigatorParamList } from '../Tabs/Tabs'
 import Landing from '../../pages/Landing'
 import CreateGroup from '../../pages/CreateGroup'
 import JoinGroup from '../../pages/JoinGroup'
+import SweepstakeRound from '../../pages/StartRound/StartRound'
+import StartRound from '../../pages/StartRound/StartRound'
 
 export type HomeStackParamList = {
   Home: undefined;
   SweepstakeGroup: undefined;
+  SweepstakeRound: undefined;
+  StartSweepstakeRound: undefined;
 };
 
 export type ProfileStackParamList = {
@@ -79,6 +83,28 @@ export const HomeNavigator = () => (
         headerMode: 'screen',
         headerTitle: () => <HeaderTitle title="Group" />,
         headerBackTitleStyle: { color: 'black' },
+        headerTintColor: '#000'
+      })}
+    />
+    <HomeStack.Screen
+      name="SweepstakeRound"
+      component={SweepstakeRound}
+      options={() => ({
+        headerMode: 'screen',
+        headerTitle: () => <></>,
+        headerBackTitleStyle: { color: 'black' },
+        headerBackTitleVisible: false,
+        headerTintColor: '#000'
+      })}
+    />
+    <HomeStack.Screen
+      name="StartSweepstakeRound"
+      component={StartRound}
+      options={() => ({
+        headerMode: 'screen',
+        headerTitle: () => <></>,
+        headerBackTitleStyle: { color: 'black' },
+        headerBackTitleVisible: false,
         headerTintColor: '#000'
       })}
     />

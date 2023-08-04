@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
-import { Card, Text, View } from 'react-native-ui-lib'
+import { Text, View } from 'react-native-ui-lib'
 import { FlatList } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
@@ -11,7 +11,6 @@ import secureStore from '../../utils/secureStore'
 import { selectedGroupNameSelector, userDataSelector } from '../../utils/selectors'
 import { setGroups } from '../../slices/app.slice'
 import { GroupMemberListItem } from './GroupMemberListItem'
-import { BlurView } from 'expo-blur'
 import BlurCard from '../../components/BlurCard'
 
 const SweepstakeGroup = () => {
@@ -29,6 +28,10 @@ const SweepstakeGroup = () => {
 	const handleDeleteGroup = async () => {
 		const authToken = await secureStore.getSecureAuthToken()
 		deleteGroupInitiator({ authToken, groupName: group.groupName })
+	}
+
+	const handleStartNewRound = async () => {
+		navigation.navigate('StartSweepstakeRound')
 	}
 
 	useEffect(() => {
@@ -67,7 +70,7 @@ const SweepstakeGroup = () => {
 							/>}
 					/>
 
-					{group.rounds.length > 0 && (
+					{group.rounds.length > 0 ? (
 						<>
 							<Text>Rounds:</Text>
 							<FlatList
@@ -75,8 +78,13 @@ const SweepstakeGroup = () => {
 								keyExtractor={(round, i) => `${round}-${i}`}
 								renderItem={({ item }) => <Text>{item.fullName}</Text>}
 							/>
-						</>
-					)}
+						</>)
+						: null
+					}
+
+
+					{group.isOwner &&
+						<Button label='Start new round' type='primary' onPress={handleStartNewRound} />}
 
 					{
 						group.isOwner &&

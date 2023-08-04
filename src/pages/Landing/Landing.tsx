@@ -1,7 +1,7 @@
 import React from 'react'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-import { LoginStackParamList } from '../../navigator/Stacks/Login'
+import { LoginStackParamList } from '../../navigator/Stacks/Stacks'
 import { View } from 'react-native-ui-lib'
 import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
 import { Heading } from '../../components/common/Typography'

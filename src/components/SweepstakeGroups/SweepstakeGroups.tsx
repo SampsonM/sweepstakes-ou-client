@@ -38,7 +38,12 @@ export const SweepstakeGroups = () => {
 	const userData: UserData = userDataSelector()
 
 	if (userData?.groups?.length < 1) {
-		return null
+		return (
+			<Card padding-10>
+				<Text marginB-5 text60>Welcome to SweepSteaks!</Text>
+				<Text text70>You aren&apos;t part of any groups yet so why not try and create a group or join a friends existing group using the menu icons below.</Text>
+			</Card>
+		)
 	}
 
 	return (
