@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
-import { Text } from 'react-native-ui-lib'
+import { Text, View } from 'react-native-ui-lib'
 import BasicScreenWrapper from '../../components/common/BasicScreenWrapper'
 import secureStore from '../../utils/secureStore'
-import BlurCard from '../../components/BlurCard'
 import { useLazyGetEventsQuery } from '../../slices/events.slice'
+import { EventCarousel } from '../../components/EventCarousel'
+import { selectedGroupNameSelector } from '../../utils/selectors'
 
-const StartRound = () => {
-	// TODO: show users assigned to teams
-	// TODO: allow shuffle off users and teams once
-
+const StartRound = ({ groupId }) => {
 	const [triggerGetEvents, eventsResult] = useLazyGetEventsQuery()
+	const groupName = selectedGroupNameSelector()
 
 	useEffect(() => {
 		const getEvents = async () => {
@@ -22,22 +21,17 @@ const StartRound = () => {
 
 	return (
 		<BasicScreenWrapper>
-			<BlurCard>
+			<View style={{ height: '100%' }}>
 				<>
 					{eventsResult.isLoading ? <Text>Loading...</Text> : null}
 
 					{
-						eventsResult.isSuccess && eventsResult.data && eventsResult.data.length > 0 ?
-							<>
-								<Text>Choose event</Text>
-
-								{eventsResult.data.map(e => <Text key={e.id}>{e.eventName}</Text>)}
-							</>
+						eventsResult.isSuccess && eventsResult.data
+							? <EventCarousel events={eventsResult.data} groupId={groupId} groupName={groupName} />
 							: null
-
 					}
 				</>
-			</BlurCard>
+			</View>
 		</BasicScreenWrapper>
 	)
 }

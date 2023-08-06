@@ -1,6 +1,19 @@
 import { API_URL } from '@env'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+export type Sport = 'football' | 'horse-racing'
+
+export type SweepstakeEventResponse = {
+  id: string;
+  eventName: string;
+  startDate: string;
+  endDate: string;
+  eventWinner: string;
+  participants: string;
+  inProgress: boolean;
+  sport: Sport;
+}
+
 export type SweepstakeEvent = {
   id: string;
   eventName: string;
@@ -9,10 +22,17 @@ export type SweepstakeEvent = {
   eventWinner: string;
   participants: string[];
   inProgress: boolean;
+  sport: Sport;
+}
+
+
+export const sportIconMapping: Record<Sport, string> = {
+	'football': 'futbol',
+	'horse-racing': 'horse-head'
 }
 
 type GetEventsResponse = {
-  sweepstakeEvents: SweepstakeEvent[];
+  sweepstakeEvents: SweepstakeEventResponse[];
 }
 
 type GetEventsQuery = {
@@ -33,10 +53,14 @@ export const eventsApi = createApi({
         headers: { Authorization: `Bearer ${authToken}`.toString() },
         method: 'GET'
       }),
-      transformResponse: (res: Response<GetEventsResponse>) => res.data.sweepstakeEvents,
+      transformResponse: (res: Response<GetEventsResponse>) => res.data.sweepstakeEvents.map((event) => ({
+          ...event,
+          participants: JSON.parse(event.participants)
+        }))
     }),
   }),
 })
+
 
 export const { useGetEventsQuery, useLazyGetEventsQuery } =
   eventsApi

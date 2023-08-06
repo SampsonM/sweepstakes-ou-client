@@ -15,13 +15,14 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 		borderRadius: 15,
 		overflow: 'hidden'
-	}
+	},
+	blurView: { margin: 0, padding: 10, height: '100%', borderRadius: 50 }
 })
 
 const BlurCard = ({ children }: BlurCardProps) => {
 	return (
 		<Card margin-0 marginB-10 style={styles.card}>
-			<BlurView intensity={15} tint='dark' style={{ margin: 0, padding: 10, height: '100%', borderRadius: 50 }}>
+			<BlurView intensity={15} tint='dark' style={styles.blurView}>
 				{children}
 			</BlurView>
 		</Card>

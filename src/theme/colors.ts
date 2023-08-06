@@ -26,6 +26,7 @@ Colors.loadColors({
 
   // Text colors
   'primary-text-color': colors.black,
+  'red-text-color': colors.red,
 
   // Button colors
   'btn-primary-text-color': colors['light-gold'],

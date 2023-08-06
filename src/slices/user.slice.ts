@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Group } from './group.slice'
 
 export type User = {
-  id: string;
+  id?: string;
   picture: string;
   fullName: string;
 }

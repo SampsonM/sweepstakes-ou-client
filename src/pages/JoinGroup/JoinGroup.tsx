@@ -26,7 +26,7 @@ const Home = () => {
     setShowJoinGroupSuccessCard(false)
     const authToken = await secureStore.getSecureAuthToken()
 
-    joinGroupInitiator({ authToken, groupName, groupMemberId: userData.user.id, groupInvitePhrase })
+    joinGroupInitiator({ authToken, groupName, groupMemberId: userData.user.id || '', groupInvitePhrase })
   }
 
   const handleLearnMore = () => {

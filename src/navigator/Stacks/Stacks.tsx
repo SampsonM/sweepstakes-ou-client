@@ -102,7 +102,7 @@ export const HomeNavigator = () => (
       component={StartRound}
       options={() => ({
         headerMode: 'screen',
-        headerTitle: () => <></>,
+        headerTitle: () => <HeaderTitle title="Start new sweepstake!" />,
         headerBackTitleStyle: { color: 'black' },
         headerBackTitleVisible: false,
         headerTintColor: '#000'
