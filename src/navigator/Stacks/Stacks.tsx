@@ -17,34 +17,36 @@ import SweepstakeRound from '../../pages/StartRound/StartRound'
 import StartRound from '../../pages/StartRound/StartRound'
 
 export type HomeStackParamList = {
-  Home: undefined;
-  SweepstakeGroup: undefined;
-  SweepstakeRound: undefined;
-  StartSweepstakeRound: undefined;
-};
+  Home: undefined
+  SweepstakeGroup: undefined
+  SweepstakeRound: undefined
+  StartSweepstakeRound: {
+    groupId: string
+  }
+}
 
 export type ProfileStackParamList = {
-  Profile: undefined;
-};
+  Profile: undefined
+}
 
 export type CreateGroupStackParamList = {
-  CreateGroup: undefined;
-};
+  CreateGroup: undefined
+}
 
 export type JoinGroupStackParamList = {
-  JoinGroup: undefined;
-};
+  JoinGroup: undefined
+}
 
 export type LoginStackParamList = {
-  Landing: undefined,
-  Login: undefined,
+  Landing: undefined
+  Login: undefined
   Register: undefined
 }
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabNavigatorParamList, 'HomeNavigator'>,
   StackNavigationProp<HomeStackParamList>
->;
+>
 
 // ------------------------------------
 // Constants
@@ -83,7 +85,7 @@ export const HomeNavigator = () => (
         headerMode: 'screen',
         headerTitle: () => <HeaderTitle title="Group" />,
         headerBackTitleStyle: { color: 'black' },
-        headerTintColor: '#000'
+        headerTintColor: '#000',
       })}
     />
     <HomeStack.Screen
@@ -94,7 +96,7 @@ export const HomeNavigator = () => (
         headerTitle: () => <></>,
         headerBackTitleStyle: { color: 'black' },
         headerBackTitleVisible: false,
-        headerTintColor: '#000'
+        headerTintColor: '#000',
       })}
     />
     <HomeStack.Screen
@@ -105,14 +107,17 @@ export const HomeNavigator = () => (
         headerTitle: () => <HeaderTitle title="Start new sweepstake!" />,
         headerBackTitleStyle: { color: 'black' },
         headerBackTitleVisible: false,
-        headerTintColor: '#000'
+        headerTintColor: '#000',
       })}
     />
   </HomeStack.Navigator>
 )
 
 export const ProfileNavigator = () => (
-  <ProfileStack.Navigator initialRouteName="Profile" screenOptions={navigationProps}>
+  <ProfileStack.Navigator
+    initialRouteName="Profile"
+    screenOptions={navigationProps}
+  >
     <ProfileStack.Screen
       name="Profile"
       component={Profile}
@@ -151,7 +156,10 @@ export const JoinGroupNavigator = () => (
 )
 
 export const LoginNavigator = () => (
-  <LoginStack.Navigator initialRouteName="Landing" screenOptions={navigationProps}>
+  <LoginStack.Navigator
+    initialRouteName="Landing"
+    screenOptions={navigationProps}
+  >
     <LoginStack.Screen
       name="Landing"
       component={Landing}
@@ -163,4 +171,3 @@ export const LoginNavigator = () => (
     />
   </LoginStack.Navigator>
 )
-

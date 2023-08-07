@@ -1,19 +1,28 @@
 import { API_URL } from '@env'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { SweepstakeEvent } from './events.slice'
+
+export interface UserEventParticipantAssociation {
+  givenName: string
+  eventParticipantName: string
+}
 
 export type SweepstakeRound = {
-  id: string;
+  id: string
+  groupId: string
+  event: SweepstakeEvent
+  userEventParticipantAssociations: UserEventParticipantAssociation[]
 }
 
 type GetRoundsResponse = {
-  sweepstakeRounds: SweepstakeRound[];
+  sweepstakeRounds: SweepstakeRound[]
 }
 
 type GetRoundsQuery = {
-  authToken: string;
-  groupName: string;
-  groupId: string;
-  eventId: string;
+  authToken: string
+  groupName: string
+  groupId: string
+  eventId: string
 }
 
 export interface Response<T> {
@@ -28,9 +37,10 @@ export const roundsApi = createApi({
       query: ({ authToken, groupId }) => ({
         url: `rounds/${groupId}`,
         headers: { Authorization: `Bearer ${authToken}`.toString() },
-        method: 'GET'
+        method: 'GET',
       }),
-      transformResponse: (res: Response<GetRoundsResponse>) => res.data.sweepstakeRounds
+      transformResponse: (res: Response<GetRoundsResponse>) =>
+        res.data.sweepstakeRounds,
     }),
     startRound: builder.mutation<SweepstakeRound[], GetRoundsQuery>({
       query: ({ authToken, groupName, groupId, eventId }) => ({
@@ -39,14 +49,17 @@ export const roundsApi = createApi({
         method: 'POST',
         body: {
           groupName,
-          eventId
-        }
+          eventId,
+        },
       }),
-      transformResponse: (res: Response<GetRoundsResponse>) => res.data.sweepstakeRounds
+      transformResponse: (res: Response<GetRoundsResponse>) =>
+        res.data.sweepstakeRounds,
     }),
   }),
 })
 
-
-export const { useGetRoundsByIdQuery, useLazyGetRoundsByIdQuery, useStartRoundMutation } =
-  roundsApi
+export const {
+  useGetRoundsByIdQuery,
+  useLazyGetRoundsByIdQuery,
+  useStartRoundMutation,
+} = roundsApi

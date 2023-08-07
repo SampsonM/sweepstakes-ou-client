@@ -12,11 +12,12 @@ import BlurCard from '../../components/BlurCard'
 import TextField from '../../components/common/TextField'
 import { useNavigation } from '@react-navigation/native'
 
-const Home = () => {
+const JoinGroup = () => {
   const [groupName, setGroupName] = useState('')
   const [groupInvitePhrase, setGroupInvitePhrase] = useState('')
   const [isLearnMoreVisible, setLearnMoreVisible] = useState(false)
-  const [showJoinGroupSuccessCard, setShowJoinGroupSuccessCard] = useState(false)
+  const [showJoinGroupSuccessCard, setShowJoinGroupSuccessCard] =
+    useState(false)
   const [joinGroupInitiator, joinGroupData] = useJoinGroupMutation()
   const dispatch = useDispatch()
   const userData = userDataSelector()
@@ -26,7 +27,12 @@ const Home = () => {
     setShowJoinGroupSuccessCard(false)
     const authToken = await secureStore.getSecureAuthToken()
 
-    joinGroupInitiator({ authToken, groupName, groupMemberId: userData.user.id || '', groupInvitePhrase })
+    joinGroupInitiator({
+      authToken,
+      groupName,
+      groupMemberId: userData.user.id || '',
+      groupInvitePhrase,
+    })
   }
 
   const handleLearnMore = () => {
@@ -49,18 +55,17 @@ const Home = () => {
 
   return (
     <BasicScreenWrapper>
-
-      {showJoinGroupSuccessCard ?
+      {showJoinGroupSuccessCard ? (
         <Card marginB-10 padding-10>
           <Text>Awesome you have now joined group {groupName}</Text>
         </Card>
-        : null}
+      ) : null}
 
-      {joinGroupData.isError && joinGroupData.error ?
+      {joinGroupData.isError && joinGroupData.error ? (
         <Card marginB-10 padding-10>
           <Text>{JSON.stringify(joinGroupData.error?.data?.message)}</Text>
         </Card>
-        : null}
+      ) : null}
 
       <Dialog
         visible={isLearnMoreVisible}
@@ -68,47 +73,55 @@ const Home = () => {
         panDirection={PanningProvider.Directions.DOWN}
       >
         <Card marginB-10 padding-10>
-          <Text text70 marginB-10>After joining a group you can view the group by selecting a group in the groups section of the app.</Text>
-          <Text text70 marginB-10>Once everyone has joined the group owner can start the process of starting a sweepstake round.</Text>
+          <Text text70 marginB-10>
+            After joining a group you can view the group by selecting a group in
+            the groups section of the app.
+          </Text>
+          <Text text70 marginB-10>
+            Once everyone has joined the group owner can start the process of
+            starting a sweepstake round.
+          </Text>
 
-          <Button label='Close' onPress={() => setLearnMoreVisible(false)} />
+          <Button label="Close" onPress={() => setLearnMoreVisible(false)} />
         </Card>
       </Dialog>
 
       <BlurCard>
-        {
-          joinGroupData.isLoading
-            ? <Text>Join group is loading...</Text>
-            : <>
-              <TextField
-                placeholder={'Group name'}
-                floatingPlaceholder
-                onChangeText={setGroupName}
-                enableErrors
-                validate={['required']}
-                validationMessage={['Group name is required']}
-                maxLength={40}
-              />
+        {joinGroupData.isLoading ? (
+          <Text>Join group is loading...</Text>
+        ) : (
+          <>
+            <TextField
+              placeholder={'Group name'}
+              floatingPlaceholder
+              onChangeText={setGroupName}
+              enableErrors
+              validate={['required']}
+              validationMessage={['Group name is required']}
+              maxLength={40}
+            />
 
-              <TextField
-                placeholder={'Invite phrase'}
-                floatingPlaceholder
-                onChangeText={setGroupInvitePhrase}
-                enableErrors
-                validate={['required']}
-                validationMessage={['Group invite phrase is required']}
-                maxLength={40}
-              />
+            <TextField
+              placeholder={'Invite phrase'}
+              floatingPlaceholder
+              onChangeText={setGroupInvitePhrase}
+              enableErrors
+              validate={['required']}
+              validationMessage={['Group invite phrase is required']}
+              maxLength={40}
+            />
 
-              <Button label='Join group' onPress={handleJoinGroup} />
-              <Button type='tertiary' label='Learn more +' onPress={handleLearnMore} />
-
-            </>
-        }
+            <Button label="Join group" onPress={handleJoinGroup} />
+            <Button
+              type="tertiary"
+              label="Learn more +"
+              onPress={handleLearnMore}
+            />
+          </>
+        )}
       </BlurCard>
-
     </BasicScreenWrapper>
   )
 }
 
-export default Home
+export default JoinGroup

@@ -31,6 +31,7 @@ module.exports = {
     'global-require': 'off',
     'no-console': 'off',
     'react/jsx-props-no-spreading': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
     'import/no-extraneous-dependencies': [
       'warn',
       {

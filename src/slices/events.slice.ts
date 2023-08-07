@@ -4,39 +4,39 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export type Sport = 'football' | 'horse-racing'
 
 export type SweepstakeEventResponse = {
-  id: string;
-  eventName: string;
-  startDate: string;
-  endDate: string;
-  eventWinner: string;
-  participants: string;
-  inProgress: boolean;
-  sport: Sport;
+  id: string
+  eventName: string
+  startDate: string
+  endDate: string
+  eventWinner: string
+  participants: string
+  inProgress: boolean
+  sport: Sport
 }
 
 export type SweepstakeEvent = {
-  id: string;
-  eventName: string;
-  startDate: string;
-  endDate: string;
-  eventWinner: string;
-  participants: string[];
-  inProgress: boolean;
-  sport: Sport;
+  id: string
+  eventName: string
+  startDate: string
+  endDate: string
+  eventWinner: string
+  participants: string[]
+  inProgress: boolean
+  sport: Sport
 }
 
-
 export const sportIconMapping: Record<Sport, string> = {
-	'football': 'futbol',
-	'horse-racing': 'horse-head'
+  football: 'futbol',
+  'horse-racing': 'horse-head',
 }
 
 type GetEventsResponse = {
-  sweepstakeEvents: SweepstakeEventResponse[];
+  sweepstakeEvents: SweepstakeEventResponse[]
 }
 
 type GetEventsQuery = {
-  authToken: string;
+  authToken: string
+  groupId: string
 }
 
 export interface Response<T> {
@@ -48,19 +48,18 @@ export const eventsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
     getEvents: builder.query<SweepstakeEvent[], GetEventsQuery>({
-      query: ({ authToken }) => ({
-        url: 'events?future=true',
+      query: ({ authToken, groupId }) => ({
+        url: `events/${groupId}?future=true&removeUsedEvents=true`,
         headers: { Authorization: `Bearer ${authToken}`.toString() },
-        method: 'GET'
+        method: 'GET',
       }),
-      transformResponse: (res: Response<GetEventsResponse>) => res.data.sweepstakeEvents.map((event) => ({
+      transformResponse: (res: Response<GetEventsResponse>) =>
+        res.data.sweepstakeEvents.map((event) => ({
           ...event,
-          participants: JSON.parse(event.participants)
-        }))
+          participants: JSON.parse(event.participants),
+        })),
     }),
   }),
 })
 
-
-export const { useGetEventsQuery, useLazyGetEventsQuery } =
-  eventsApi
+export const { useGetEventsQuery, useLazyGetEventsQuery } = eventsApi

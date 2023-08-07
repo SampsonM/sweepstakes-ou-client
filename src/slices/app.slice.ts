@@ -2,22 +2,23 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { UserData } from './user.slice'
 import { Group } from './group.slice'
+import { SweepstakeRound } from './rounds.slice'
 
 // ------------------------------------
 // Constants
 // ------------------------------------
 
 type AuthData = {
-  loggedIn: boolean;
-  checked: boolean;
-  userData: UserData;
+  loggedIn: boolean
+  checked: boolean
+  userData: UserData
 }
 
 export type InitialState = {
-  checked: boolean;
-  loggedIn: boolean;
-  userData: UserData;
-  selectedGroupName: string;
+  checked: boolean
+  loggedIn: boolean
+  userData: UserData
+  selectedGroupName: string
 }
 
 export const initialState: InitialState = {
@@ -54,13 +55,30 @@ const appSlice = createSlice({
     setGroups: (state, { payload }: PayloadAction<Group[]>) => {
       state.userData.groups = payload
     },
-    setSelectedGroup(state, { payload }) { 
+    setSelectedGroup(state, { payload }: PayloadAction<string>) {
       state.selectedGroupName = payload
-    }
+    },
+    setSelectedGroupRounds(
+      state,
+      { payload }: PayloadAction<SweepstakeRound[]>,
+    ) {
+      state.userData.groups = state.userData.groups.map((group) => {
+        if (group.id === payload[0]?.groupId) {
+          group.rounds = payload
+        }
+        return { ...group }
+      })
+    },
   },
 })
 
 export const { actions } = appSlice
-export const { authenticate, logout, setGroups, setSelectedGroup } = appSlice.actions
+export const {
+  authenticate,
+  logout,
+  setGroups,
+  setSelectedGroup,
+  setSelectedGroupRounds,
+} = appSlice.actions
 
 export default appSlice.reducer

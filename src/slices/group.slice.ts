@@ -1,56 +1,57 @@
 import { API_URL } from '@env'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { User } from './user.slice'
+import { SweepstakeRound } from './rounds.slice'
 
 export type Group = {
-  id: string;
-  groupName: string;
-  members: User[];
-  rounds: any[];
-  isOwner: boolean;
-  invitePhrase?: string;
+  id: string
+  groupName: string
+  members: User[]
+  rounds: SweepstakeRound[]
+  isOwner: boolean
+  invitePhrase?: string
 }
 
 type CreateGroupResponse = {
-  groups: Group[];
-  newGroup: Group;
-  invitePhrase: string;
+  groups: Group[]
+  newGroup: Group
+  invitePhrase: string
 }
 
 type DeleteGroupMemberResponse = {
-  groups: Group[];
+  groups: Group[]
 }
 
 type DeleteGroupResponse = {
-  groups: Group[];
-  deletedGroup: Group;
+  groups: Group[]
+  deletedGroup: Group
 }
 
-export interface GroupResponse<T>{
+export interface GroupResponse<T> {
   data: T
 }
 
 export type CreateGroupData = {
-  groupData: Pick<Group, 'groupName'>;
-  authToken: string;
+  groupData: Pick<Group, 'groupName'>
+  authToken: string
 }
 
 export type JoinGroupData = {
-  groupInvitePhrase: string;
-  groupName: string;
-  groupMemberId: string;
-  authToken: string;
+  groupInvitePhrase: string
+  groupName: string
+  groupMemberId: string
+  authToken: string
 }
 
 export type DeleteGroupData = {
-  groupName: Group['groupName'];
-  authToken: string;
+  groupName: Group['groupName']
+  authToken: string
 }
 
 export type DeleteGroupMemberData = {
-  groupName: Group['groupName'];
-  groupMemberId: User['id'];
-  authToken: string;
+  groupName: Group['groupName']
+  groupMemberId: User['id']
+  authToken: string
 }
 
 export const groupApi = createApi({
@@ -62,7 +63,7 @@ export const groupApi = createApi({
         url: 'groups',
         headers: { Authorization: `Bearer ${authToken}`.toString() },
         body: groupData,
-        method: 'POST'
+        method: 'POST',
       }),
       transformResponse: (res: GroupResponse<CreateGroupResponse>) => res.data,
     }),
@@ -71,20 +72,37 @@ export const groupApi = createApi({
         url: `groups/${groupName}/member/${groupMemberId}`,
         headers: { Authorization: `Bearer ${authToken}`.toString() },
         body: { invitePhrase: groupInvitePhrase },
-        method: 'POST'
+        method: 'POST',
       }),
       transformResponse: (res: GroupResponse<CreateGroupResponse>) => res.data,
     }),
     deleteGroup: builder.mutation<Group[], DeleteGroupData>({
-      query: ({ groupName, authToken }) => ({ url: `groups/${groupName}`, headers: { Authorization: `Bearer ${authToken}`.toString() }, method: 'DELETE' }),
-      transformResponse: (res: GroupResponse<DeleteGroupResponse>) => res.data.groups,
+      query: ({ groupName, authToken }) => ({
+        url: `groups/${groupName}`,
+        headers: { Authorization: `Bearer ${authToken}`.toString() },
+        method: 'DELETE',
+      }),
+      transformResponse: (res: GroupResponse<DeleteGroupResponse>) =>
+        res.data.groups,
     }),
-    deleteGroupMember: builder.mutation<DeleteGroupMemberResponse, DeleteGroupMemberData>({
-      query: ({ groupName, authToken, groupMemberId }) => ({ url: `groups/${groupName}/member/${groupMemberId}`, headers: { Authorization: `Bearer ${authToken}`.toString() }, method: 'DELETE' }),
-      transformResponse: (res: GroupResponse<DeleteGroupMemberResponse>) => res.data,
+    deleteGroupMember: builder.mutation<
+      DeleteGroupMemberResponse,
+      DeleteGroupMemberData
+    >({
+      query: ({ groupName, authToken, groupMemberId }) => ({
+        url: `groups/${groupName}/member/${groupMemberId}`,
+        headers: { Authorization: `Bearer ${authToken}`.toString() },
+        method: 'DELETE',
+      }),
+      transformResponse: (res: GroupResponse<DeleteGroupMemberResponse>) =>
+        res.data,
     }),
   }),
 })
 
-export const { useCreateGroupMutation, useDeleteGroupMutation, useDeleteGroupMemberMutation, useJoinGroupMutation } =
-  groupApi
+export const {
+  useCreateGroupMutation,
+  useDeleteGroupMutation,
+  useDeleteGroupMemberMutation,
+  useJoinGroupMutation,
+} = groupApi
