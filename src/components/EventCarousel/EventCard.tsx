@@ -1,75 +1,32 @@
 import React from 'react'
 import { Card, Text, View } from 'react-native-ui-lib'
-import FontIcon from 'react-native-vector-icons/FontAwesome5'
-import {
-  Sport,
-  SweepstakeEvent,
-  sportIconMapping,
-} from '../../slices/events.slice'
-import { colors } from '../../theme'
-import { FlatList, StyleSheet } from 'react-native'
+import { SweepstakeEvent } from '../../slices/events.slice'
 import Button from '../common/Button'
+import ScrollList from '../common/ScrollList/ScrollList'
+import SportIcon from '../common/Icons/SportIcon/SportIcon'
 
-const styles = StyleSheet.create({
-  eventCardParticipantListItem: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.black,
-    height: 30,
-    paddingHorizontal: 15,
-    paddingTop: 8,
-  },
-  eventCardParticipantList: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.black,
-    borderRadius: 10,
-    height: 100,
-    marginBottom: 15,
-  },
-})
+const getDate = (date: string) => {
+  const formattedDate = new Date(Number(date))
+  const utcDate = formattedDate.getUTCDate()
+  const utcMonth = formattedDate.getUTCMonth()
+  const utcYear = formattedDate.getUTCFullYear()
 
-const EventCardParticipantListItem = ({
-  participant,
-}: {
-  participant: string
-}) => {
-  return (
-    <View style={styles.eventCardParticipantListItem}>
-      <Text>{participant}</Text>
-    </View>
-  )
+  return `${utcDate}-${utcMonth}-${utcYear}`
 }
 
 export const EventCard = ({
   event,
   onPress,
 }: {
-  event: SweepstakeEvent
-  onPress: (eventId: string) => void
+  event: SweepstakeEvent;
+  onPress: (eventId: string) => void;
 }) => {
-  const getIconName = (sport: Sport) => {
-    return sportIconMapping[sport]
-  }
-
-  const getDate = (date: string) => {
-    const formattedDate = new Date(Number(date))
-    const utcDate = formattedDate.getUTCDate()
-    const utcMonth = formattedDate.getUTCMonth()
-    const utcYear = formattedDate.getUTCFullYear()
-
-    return `${utcDate}-${utcMonth}-${utcYear}`
-  }
-
   return (
     <Card flexG padding-10 marginH-5>
       <View centerH margin-10 marginB-15>
-        <FontIcon
-          name={getIconName(event.sport)}
-          color={colors['red']}
-          size={75}
-          solid
-        />
+        <SportIcon sport={event.sport} size={75} />
         <Text text60 marginT-5 red-text-color>
-          {event.eventName}-{event.id}
+          {event.eventName}
         </Text>
       </View>
 
@@ -91,16 +48,16 @@ export const EventCard = ({
         </Text>
       </View>
 
-      <Text text60 marginB-5>
-        participants:{' '}
+      <Text text60 marginB-10>
+        participants:
       </Text>
-      <FlatList
-        style={styles.eventCardParticipantList}
-        data={event.participants}
-        renderItem={(data) => (
-          <EventCardParticipantListItem participant={data.item} />
-        )}
-      />
+
+      <View height={120} marginB-15>
+        <ScrollList
+          data={event.participants}
+          listItem={(data: string) => (<Text>{data}</Text>)}
+        />
+      </View>
 
       <Button
         marginB-20

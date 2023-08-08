@@ -63,7 +63,7 @@ const appSlice = createSlice({
       { payload }: PayloadAction<SweepstakeRound[]>,
     ) {
       state.userData.groups = state.userData.groups.map((group) => {
-        if (group.id === payload[0]?.groupId) {
+        if (group.groupName === state.selectedGroupName) {
           group.rounds = payload
         }
         return { ...group }

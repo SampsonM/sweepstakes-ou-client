@@ -3,15 +3,16 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { SweepstakeEvent } from './events.slice'
 
 export interface UserEventParticipantAssociation {
-  givenName: string
-  eventParticipantName: string
+  id: string; // user id
+  givenName: string;
+  eventParticipantName: string;
 }
 
 export type SweepstakeRound = {
-  id: string
-  groupId: string
-  event: SweepstakeEvent
-  userEventParticipantAssociations: UserEventParticipantAssociation[]
+  id: string;
+  groupId: string;
+  event: SweepstakeEvent;
+  userEventParticipantAssociations: UserEventParticipantAssociation[];
 }
 
 type GetRoundsResponse = {
@@ -19,10 +20,23 @@ type GetRoundsResponse = {
 }
 
 type GetRoundsQuery = {
-  authToken: string
-  groupName: string
-  groupId: string
-  eventId: string
+  authToken: string;
+  groupName: string;
+  groupId: string;
+  eventId: string;
+}
+
+type DeleteRoundsQuery = {
+  authToken: string;
+  groupId: string;
+  roundId: string;
+}
+
+type DeleteMemberFromRoundQuery = {
+  authToken: string;
+  groupId: string;
+  roundId: string;
+  userId: string;
 }
 
 export interface Response<T> {
@@ -55,6 +69,24 @@ export const roundsApi = createApi({
       transformResponse: (res: Response<GetRoundsResponse>) =>
         res.data.sweepstakeRounds,
     }),
+    deleteRound: builder.mutation<SweepstakeRound[], DeleteRoundsQuery>({
+      query: ({ authToken, roundId, groupId }) => ({
+        url: `rounds/${roundId}?groupId=${groupId}`,
+        headers: { Authorization: `Bearer ${authToken}`.toString() },
+        method: 'DELETE',
+      }),
+      transformResponse: (res: Response<GetRoundsResponse>) =>
+        res.data.sweepstakeRounds,
+    }),
+    deleteUserFromRound: builder.mutation<SweepstakeRound[], DeleteMemberFromRoundQuery>({
+      query: ({ authToken, roundId, groupId, userId }) => ({
+        url: `rounds/${roundId}/member/${userId}?groupId=${groupId}`,
+        headers: { Authorization: `Bearer ${authToken}`.toString() },
+        method: 'DELETE',
+      }),
+      transformResponse: (res: Response<GetRoundsResponse>) =>
+        res.data.sweepstakeRounds,
+    }),
   }),
 })
 
@@ -62,4 +94,6 @@ export const {
   useGetRoundsByIdQuery,
   useLazyGetRoundsByIdQuery,
   useStartRoundMutation,
+  useDeleteRoundMutation,
+  useDeleteUserFromRoundMutation
 } = roundsApi

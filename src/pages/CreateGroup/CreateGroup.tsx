@@ -70,11 +70,10 @@ const CreateGroup = () => {
         panDirection={PanningProvider.Directions.DOWN}
       >
         <Card marginB-10 padding-10>
-          <Text text70 marginB-10>A sweepstake group allows you to run sweepstakes with any event, with the same group of friends, all at the same time!</Text>
-          <Text text70 marginB-10>After creating a group we will give you a 4 word invite-phrase that allows others to join your group.</Text>
-          <Text text70 marginB-10>Up to 100 people can then join your sweepstake group.</Text>
-          <Text text70 marginB-10>As the owner you can then invite people to join using the invite-phrase.</Text>
-          <Text text70 marginB-10>You can find the invite phrase later by selecting a group in the groups section of the app.</Text>
+          <Text text70 marginB-10>A Sweepstake Group allows you to run multiple Sweepstakes for any event, with the same friends, all at the same time!</Text>
+          <Text text70 marginB-10>After creating a group we will give you a 4 word invite-phrase that allows others to join.</Text>
+          <Text text70 marginB-10>Up to 100 people can then join your Sweepstake Group.</Text>
+          <Text text70 marginB-10>You can find the invite phrase later by selecting your Group in the Groups section of the app.</Text>
 
           <Button label='Close' onPress={() => setLearnMoreVisible(false)} />
         </Card>

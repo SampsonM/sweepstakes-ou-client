@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native'
 
 
 export type BlurCardProps = {
-	children: JSX.Element
+	children: JSX.Element | JSX.Element[] | null
 }
 
 const styles = StyleSheet.create({

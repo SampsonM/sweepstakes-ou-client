@@ -9,12 +9,14 @@ import { HomeScreenNavigationProp } from '../../navigator/Stacks/Stacks'
 import { useDeleteGroupMutation } from '../../slices/group.slice'
 import secureStore from '../../utils/secureStore'
 import {
+  groupSelector,
   selectedGroupNameSelector,
   userDataSelector,
 } from '../../utils/selectors'
 import { setGroups } from '../../slices/app.slice'
 import { GroupMemberListItem } from './GroupMemberListItem'
 import BlurCard from '../../components/BlurCard'
+import { RoundListItem } from './RoundListItem'
 
 const SweepstakeGroup = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>()
@@ -24,10 +26,8 @@ const SweepstakeGroup = () => {
     { isLoading, isSuccess, isError, error, data: newGroups },
   ] = useDeleteGroupMutation()
   const selectedGroupName = selectedGroupNameSelector()
+  const group = groupSelector(selectedGroupName)
   const userData = userDataSelector()
-  const group = userData.groups.find(
-    ({ groupName }) => groupName === selectedGroupName,
-  )
 
   useEffect(() => {
     if (isSuccess && newGroups) {
@@ -47,6 +47,10 @@ const SweepstakeGroup = () => {
 
   const handleStartNewRound = async () => {
     navigation.navigate('StartSweepstakeRound', { groupId: group.id })
+  }
+
+  const navigateToRound = (roundId: string) => {
+    navigation.navigate('SweepstakeRound', { roundId })
   }
 
   return (
@@ -82,11 +86,11 @@ const SweepstakeGroup = () => {
 
           {group.rounds.length > 0 ? (
             <>
-              <Text>Rounds:</Text>
+              <Text subheading>Rounds:</Text>
               <FlatList
                 data={group.rounds}
-                keyExtractor={(round, i) => `${round}-${i}`}
-                renderItem={({ item }) => <Text>{item.event.eventName}</Text>}
+                keyExtractor={(round) => round.id}
+                renderItem={({ item }) => <RoundListItem navigateToRound={navigateToRound} round={item} />}
               />
             </>
           ) : null}

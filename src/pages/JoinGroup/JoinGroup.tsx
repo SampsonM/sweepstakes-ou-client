@@ -74,12 +74,12 @@ const JoinGroup = () => {
       >
         <Card marginB-10 padding-10>
           <Text text70 marginB-10>
-            After joining a group you can view the group by selecting a group in
-            the groups section of the app.
+            After joining a group you can view it by selecting
+            the groups icon in the tab bar.
           </Text>
           <Text text70 marginB-10>
-            Once everyone has joined the group owner can start the process of
-            starting a sweepstake round.
+            Once everyone has joined, the group owner can
+            start a sweepstake round.
           </Text>
 
           <Button label="Close" onPress={() => setLearnMoreVisible(false)} />

@@ -13,34 +13,38 @@ import { TabNavigatorParamList } from '../Tabs/Tabs'
 import Landing from '../../pages/Landing'
 import CreateGroup from '../../pages/CreateGroup'
 import JoinGroup from '../../pages/JoinGroup'
-import SweepstakeRound from '../../pages/StartRound/StartRound'
-import StartRound from '../../pages/StartRound/StartRound'
+import StartSweepstakeRound from '../../pages/StartRound/StartRound'
+import SweepstakeRound from '../../pages/SweepstakeRound/SweepstakeRound'
 
 export type HomeStackParamList = {
-  Home: undefined
-  SweepstakeGroup: undefined
-  SweepstakeRound: undefined
+  Home: undefined;
+  SweepstakeGroup: {
+    groupId: string
+  };
+  SweepstakeRound: {
+    roundId: string
+  };
   StartSweepstakeRound: {
     groupId: string
-  }
+  };
 }
 
 export type ProfileStackParamList = {
-  Profile: undefined
+  Profile: undefined;
 }
 
 export type CreateGroupStackParamList = {
-  CreateGroup: undefined
+  CreateGroup: undefined;
 }
 
 export type JoinGroupStackParamList = {
-  JoinGroup: undefined
+  JoinGroup: undefined;
 }
 
 export type LoginStackParamList = {
-  Landing: undefined
-  Login: undefined
-  Register: undefined
+  Landing: undefined;
+  Login: undefined;
+  Register: undefined;
 }
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
@@ -101,7 +105,7 @@ export const HomeNavigator = () => (
     />
     <HomeStack.Screen
       name="StartSweepstakeRound"
-      component={StartRound}
+      component={StartSweepstakeRound}
       options={() => ({
         headerMode: 'screen',
         headerTitle: () => <HeaderTitle title="Start new sweepstake!" />,
